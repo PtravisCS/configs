@@ -116,3 +116,37 @@ mkcd() {
  mkdir $1
  cd $1
 }
+
+cdls() {
+  cd $1
+  ls
+}
+
+gitBranch() {
+
+  local gitBranch = $(git rev-parse --abbrev-ref HEAD) || ""
+
+  echo $gitBranch
+
+}
+
+gitStatus() {
+
+  if ! [[ gitBranch ]] 
+  then
+    echo '' 
+  else
+    echo ' | '
+    local gitStatus = $(git status -bs | grep -o '\\[[^]]*]') || echo '' 
+
+    if ! [[ gitStatus ]] 
+    then
+      echo '[Up To Date]'
+    fi
+
+  fi
+
+}
+
+PS1='\[\e[0;31m\]$(gitBranch) $(gitStatus)\n\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
