@@ -1,3 +1,4 @@
+" Define Plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'rktjmp/lush.nvim'
@@ -11,12 +12,12 @@ Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 
 call plug#end()
 
+" Enable Plugins that require it
 lua require('tabline').setup()
 lua require('lualine').setup()
-lua require('nvim-web-devicons').setup()
 
 set encoding=UTF-8
-set background=dark
+set background=dark "required for gruvbox
 colorscheme gruvbox
 
 " Keybindings
@@ -25,7 +26,15 @@ nnoremap <leader>ga :!git add %<cr>
 nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
 nnoremap <leader>C <cmd>CHADopen<cr>
-nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
+
+if has('unix')
+  nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
+endif
+
+if has('win32') || has('win32unix')
+  nnoremap <leader>ev <cmd>badd C:\Users\3364324\AppData\Local\nvim\init.vim<cr><cmd>b init.vim<cr>
+endif
+
 nnoremap <silent> <leader>w :lua require('nvim-window').pick()<CR>
 
 " Syntax Highlighting
