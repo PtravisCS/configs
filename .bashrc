@@ -124,29 +124,29 @@ cdls() {
 
 gitBranch() {
 
-  local gitBranch = $(git rev-parse --abbrev-ref HEAD) || ""
-
-  echo $gitBranch
+  local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) 
+  echo "$gitBranch"
 
 }
 
 gitStatus() {
 
-  if ! [[ gitBranch ]] 
-  then
-    echo '' 
-  else
-    echo ' | '
-    local gitStatus = $(git status -bs | grep -o '\\[[^]]*]') || echo '' 
+  local gitBranch=$(gitBranch) 
 
-    if ! [[ gitStatus ]] 
+  if [[ -n "$gitBranch" ]]
+  then
+    local gitStatus=$(git status -bs 2>/dev/null | grep -o '\\[[^]]*]') 
+
+    if [[ -z "$gitStatus" ]]
     then
-      echo '[Up To Date]'
+      echo "$gitBranch | [Up To Date]"
+    else
+      echo "$gitBranch | $gitStatus"
     fi
 
   fi
 
 }
 
-PS1='\[\e[0;31m\]$(gitBranch) $(gitStatus)\n\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\e[0;31m\]$(gitStatus && echo "\n")\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
