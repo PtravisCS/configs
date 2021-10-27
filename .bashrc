@@ -135,7 +135,7 @@ gitStatus() {
 
   if [[ -n "$gitBranch" ]]
   then
-    local gitStatus=$(git status -bs 2>/dev/null | grep -o '\\[[^]]*]') 
+    local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]") 
 
     if [[ -z "$gitStatus" ]]
     then
