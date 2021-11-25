@@ -37,12 +37,14 @@
         "list": 
         [
             {
+                "acrylicOpacity": 0.0,
                 "colorScheme": "Gruvbox Dark",
                 "commandline": "powershell.exe",
                 "fontFace": "DejaVuSansMono NF",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
-                "name": "Windows PowerShell"
+                "name": "Windows PowerShell",
+                "useAcrylic": false
             },
             {
                 "commandline": "cmd.exe",
@@ -57,6 +59,7 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
+                "colorScheme": "Gruvbox Dark",
                 "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
                 "cursorColor": "#FFFF00",
                 "cursorShape": "filledBox",
@@ -65,6 +68,7 @@
                 "name": "Git Bash"
             },
             {
+                "colorScheme": "Gruvbox Dark",
                 "commandline": "C:/msys64/msys2_shell.cmd -defterm -here -no-start -mingw64",
                 "fontFace": "Lucida Console",
                 "fontSize": 9,
@@ -87,6 +91,7 @@
                 "startingDirectory": "C:/msys64/home/%USERNAME%"
             },
             {
+                "colorScheme": "Gruvbox Dark",
                 "commandline": "C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys",
                 "fontFace": "Lucida Console",
                 "fontSize": 9,
@@ -96,6 +101,7 @@
                 "startingDirectory": "C:/msys64/home/%USERNAME%"
             },
             {
+                "colorScheme": "Gruvbox Dark",
                 "cursorShape": "vintage",
                 "fontFace": "DejaVuSansMono NF",
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
@@ -340,5 +346,6 @@
     ],
     "tabWidthMode": "equal",
     "theme": "dark",
+    "trimBlockSelection": true,
     "windowingBehavior": "useExisting"
 }
