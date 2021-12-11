@@ -1,4 +1,6 @@
 import json
+from shutil import copy
+from os.path import expanduser
 
 def getProfiles(data):
     profiles=[]
@@ -51,6 +53,8 @@ for i in configs:
 
 for i in keys:
     print("Copying: '{0}' to '{1}'".format(i, configs[i]))
+    copy(i,expanduser(configs[i]))
+
 
 
 
