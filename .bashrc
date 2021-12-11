@@ -148,5 +148,12 @@ gitStatus() {
 
 }
 
+crlf2lf() {
+
+  perl -p -e 's/\r$//' < $1 > tmpcrlf 
+  mv tmpcrlf $1
+
+}
+
 PS1='\[\e[0;31m\]$(gitStatus && echo "\n")\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
