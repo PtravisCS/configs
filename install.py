@@ -1,25 +1,47 @@
 import json
 from shutil import copy
-from os.path import expanduser
+from os.path import expanduser, expandvars, normcase
+from typing import List, Dict
 
-def getProfiles(data):
-    profiles=[]
+def getListOfProfiles(data: Dict[str, str]) -> List[str]:
+    '''
+    Returns a list of keys from the input dictionary corresponding to the config profiles.
+        
+        Parameters:
+            data (Dict[str, str]): A dictionary representing JSON data
+
+        Returns:
+            profiles (List[str]): A list containing the set of profiles present in the dictionary
+    '''
+
+    profiles: List[str] = []
 
     for i in data['profiles']:
         profiles.append(i)
 
     return profiles
 
-def enumerateArray(data, startingX):
-    x = startingX 
+def enumerateArray(data: Dict[str, str], startingX: int) -> None:
+    '''
+    Enumerates and prints a dictionary to stdout.
+
+        Parameters:
+            data (Dict[str,str]): A dictionary representing JSON data
+            startingX (int): An integer representing the number to start enumerating from
+
+        Returns:
+            Nothing
+    '''
+
+    x: int = startingX 
     for i in data:
         print("{0}) {1}".format(x,i))
         x += 1
 
-def getJsonFromFile(fileName):
+def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
     with open(fileName) as file:
         if not file.closed:
-            data = json.load(file)
+            data: Dict[str, str] = json.load(file)
             file.close()
 
             return data
@@ -28,32 +50,79 @@ def getJsonFromFile(fileName):
 
     return
 
-try: 
-    data = getJsonFromFile('config_profiles.json')
+def expandPath(path: str) -> str:
+    path:str = expanduser(path)
+    path:str = expandvars(path)
+    path:str = normcase(path)
+    return path
 
-except FileNotFoundError as e:
-    print(e)
-    exit()
+def copyFiles(keys: List[str], configs: Dict[str, str]) -> None:
+    for i in keys:
+        print("Copying: '{0}' to '{1}'".format(i, expandPath(configs[i])))
+        copy(i, expandPath(configs[i]))
 
-print("\nPlease Choose a Profile: \n")
+def getIntegerInput(prompt: str) -> int:
+    number: int = int(input(prompt))
+    return number 
 
-profiles = getProfiles(data) 
+def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
+    try: 
+        data: Dict[str, str] = getJsonFromFile(file)
 
-enumerateArray(profiles, 1)
+    except FileNotFoundError as e:
+        print(e)
+        exit()
 
-profileNum = int(input("> ")) - 1
+    return data
 
-profile = profiles[profileNum]
+def selectProfileNum(data: Dict[str, str]) -> int:
+    print("\nPlease Choose a Profile: \n")
 
-configs = data['profiles'][profile]
+    profiles: List[str] = getListOfProfiles(data)
 
-keys = []
-for i in configs:
-    keys.append(i)
+    enumerateArray(profiles, 1)
 
-for i in keys:
-    print("Copying: '{0}' to '{1}'".format(i, configs[i]))
-    copy(i,expanduser(configs[i]))
+    profileNum: int = getIntegerInput("> ") - 1
+
+    return profileNum
+
+
+def getSelectedProfile(profileNum: int, data: Dict[str, str]) -> str:
+
+    profiles: List[str] = getListOfProfiles(data)
+
+    profile: string = profiles[profileNum]
+
+    return profile
+
+def getKeys(dictionary: Dict[str, str]) -> List[str]:
+    keys: List[str] = []
+    for i in dictionary:
+        keys.append(i)
+
+    return keys
+
+def getConfigs(data: Dict[str, str], profile: str) -> Dict[str, str]:
+    return data['profiles'][profile]
+
+def main() -> None:
+    data: Dict[str, str] = getJsonDataFromFile('config_profiles.json')
+
+    profileNum: int = selectProfileNum(data) 
+
+    profile: string = getSelectedProfile(profileNum, data)
+
+    configs: Dict[str, str] = getConfigs(data, profile) 
+
+    keys: List[str] = getKeys(configs)
+
+    copyFiles(keys, configs)
+
+# Call main function at start of program
+# There is no _need_ for a main function for this program, but I prefer it over unnested "global" code.
+# This way I avoid unexpected/unwanted "side-effects" and code looks prettier 
+if __name__ == "__main__":
+    main()
 
 
 
