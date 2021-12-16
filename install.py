@@ -39,6 +39,16 @@ def enumerateArray(data: Dict[str, str], startingX: int) -> None:
         x += 1
 
 def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
+    '''
+    Opens the provided file and loads the JSON data into a Dictionary
+
+        Parameters:
+            fileName (str): A string representing the path to the file
+
+        Returns
+            data (Dict[str, str]): A dictionary containing the JSON data from the provided file 
+    '''
+
     with open(fileName) as file:
         if not file.closed:
             data: Dict[str, str] = json.load(file)
@@ -51,12 +61,36 @@ def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
     return
 
 def expandPath(path: str) -> str:
+    '''
+    Cleans a provided file path, expanding the user directory, expanding variables, and normalizing the path case
+
+        Parameters:
+            path (str): A path to be cleaned
+
+        Returns
+            path (str): A clean version of the initially passed path
+    '''
+
     path:str = expanduser(path)
     path:str = expandvars(path)
     path:str = normcase(path)
     return path
 
 def copyFiles(keys: List[str], configs: Dict[str, str]) -> None:
+    '''
+    Copies files provided in "keys" to the corresponding path in config[key].
+
+    Cleans paths before copying using the expandPath method.
+    Also prints files being copied and intended path to stdOut
+
+        Parameters:
+            keys (List[str]): A list of filenames to copy.
+            configs (Dict[str, str]): A dictionary containing the path to copy files to where keys are the file name to copy.
+
+        Returns
+            None
+    '''
+
     for i in keys:
         print("Copying: '{0}' to '{1}'".format(i, expandPath(configs[i])))
         copy(i, expandPath(configs[i]))
