@@ -122,6 +122,13 @@ cdls() {
   ls
 }
 
+crlf2lf() {
+
+  perl -p -e 's/\r$//' < $1 > tmpcrlf 
+  mv tmpcrlf $1
+
+}
+
 gitBranch() {
 
   local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) 
@@ -148,12 +155,15 @@ gitStatus() {
 
 }
 
-crlf2lf() {
+black=$(tput setaf 0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+white=$(tput setaf 7)
+default_colour=$(tput setaf 9)
 
-  perl -p -e 's/\r$//' < $1 > tmpcrlf 
-  mv tmpcrlf $1
-
-}
-
-PS1='\[\e[0;31m\]$(gitStatus && echo "\n")\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
+#PS1='\[\e[0;31m\]$(gitStatus && echo "\n")\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='$red$(gitStatus && echo "\n")$yellow${debian_chroot:+($debian_chroot)}$(echo $green)\u@\h$white:$blue\w$white\$ '
