@@ -7,3 +7,6 @@ alias ghci='stack ghci --allow-different-user'
 alias hello='echo hello, world'
 alias top='sudo top -Eg'
 alias please='sudo !!'
+alias psh="pwsh"
+alias powershell="pwsh"
+alias note='cd ~/notes && date +%c | cat >> `date +%F` ; nvim $(date +%F);echo|tac >> `date +%F` && cd -'
