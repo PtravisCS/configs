@@ -192,12 +192,10 @@ gitStatus() {
 
     if [[ -z "$gitStatus" ]]
     then
-      echo "$gitBranch | [Up To Date]"
+      printf "$gitBranch | [Up To Date]\n "
     else
-      echo "$gitBranch | $gitStatus"
+      printf "$gitBranch | $gitStatus\n "
     fi
-
-    echo '\n'
 
   fi
 
