@@ -129,6 +129,52 @@ crlf2lf() {
 
 }
 
+statls() {
+
+  while getopts "ah" o; do
+    case "$o" in
+      a)
+	all=1;
+	;;
+      h)
+        echo "Usage: statls [-ah] <file/director name>" 
+	echo "-a: displays hidden files"
+	echo "-h: displays this help message"
+	;;
+      *)
+        echo "Usage: statls [-ah] <file/director name>" 
+	echo "-a: displays hidden files"
+	echo "-h: displays this help message"
+	;;
+    esac
+  done
+
+  shift $(($OPTIND - 1));
+  if [[ -z "$1" ]]
+  then
+    directory="."
+  else
+    directory=$1
+  fi
+
+  if [[ $all != 0 ]]
+  then
+    local file_list="$(ls -a $directory)"
+  else
+    local file_list="$(ls $directory)"
+  fi
+
+  local output=""
+
+  for f in $file_list
+  do
+    output+="$f \t $(stat $f | egrep -o '\([0-9]{4}\/[dwrx-]{10}\)') \t $(file $f | cut -d ':' -f 2)\n"
+  done
+
+  echo -e $output | awk -F '\t' '{printf "%-30s %-14s %-30s\n", $1, $2, $3}'
+
+}
+
 gitBranch() {
 
   local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) 
@@ -151,6 +197,8 @@ gitStatus() {
       echo "$gitBranch | $gitStatus"
     fi
 
+    echo '\n'
+
   fi
 
 }
@@ -165,5 +213,11 @@ cyan=$(tput setaf 6)
 white=$(tput setaf 7)
 default_colour=$(tput setaf 9)
 
-#PS1='\[\e[0;31m\]$(gitStatus && echo "\n")\[\e[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-PS1='$red$(gitStatus && echo "\n")$yellow${debian_chroot:+($debian_chroot)}$(echo $green)\u@\h$white:$blue\w$white\$ '
+# /033 = escape
+# 0;31m = red
+# 00m = reset
+# 1;32m = light green 
+# 01;34m = light blue
+
+PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PS1='$red$(gitStatus && echo "\n")$yellow${debian_chroot:+($debian_chroot)}$(echo $green)\u@\h$white:$blue\w$white\$ '
