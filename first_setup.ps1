@@ -5,6 +5,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 choco install python3
 choco install python2
 choco install typescript
+choco install jdk11
+choco install jdk8
 
 # IDEs
 choco install vscode
@@ -20,15 +22,25 @@ choco install hg
 choco install powershell-core
 choco install msys2
 
-
 # Non-Choco Pacmans
 choco install nvm
+choco install maven
 
 # User Applications
 choco install audacity
+choco install greenshot
+choco install postman
+choco install powertoys
+choco install screentogif
+choco install wireshark
+choco install amazon-workspaces
+choco install keypass
+choco install powerbi
 
 # Post Choco Installations
 .\scripts\vscode_plugins.ps1
 .\scripts\node_packages.ps1
+.\scripts\neoVim.ps1
 wsl --update
 wsl --install --distribution Debian
+
