@@ -43,6 +43,7 @@ refreshenv
 .\scripts\vscode_plugins.ps1
 .\scripts\node_packages.ps1
 .\scripts\neoVim.ps1
+.\scripts\powershell_modules.ps1
 wsl --update
 wsl --install --distribution Debian
 python3 install.py

@@ -26,6 +26,7 @@ function psrc {
 
 }
 
+<#
 function Prompt {
 
   $gitBranch = $( git rev-parse --abbrev-ref HEAD ) 
@@ -49,6 +50,7 @@ function Prompt {
   }
 
 }
+#>
 
 function slm {
 
@@ -71,3 +73,7 @@ function edit_profile {
 New-Alias vi nvim
 Set-PSReadLineOption -EditMode Vi
 Import-Module -Name Terminal-Icons
+Import-Module -Name posh-git
+
+$GitPromptSettings.DefaultPromptWriteStatusFirst = $true
+$GitPromptSettings.DefaultPromptPath.Text = "`n$(Get-Location)"
