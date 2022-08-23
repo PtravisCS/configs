@@ -66,7 +66,7 @@ function potato {
 
 function edit_profile {
 
-  vi $PROFILE
+  nvim $PROFILE
 
 }
 
@@ -76,4 +76,5 @@ Import-Module -Name Terminal-Icons
 Import-Module -Name posh-git
 
 $GitPromptSettings.DefaultPromptWriteStatusFirst = $true
-$GitPromptSettings.DefaultPromptPath.Text = "`n$(Get-Location)"
+$GitPromptSettings.DefaultPromptPath.Text = "`n" + $GitPromptSettings.DefaultPromptPath.Text 
+
