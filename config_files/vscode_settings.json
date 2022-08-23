@@ -1,0 +1,178 @@
+{
+    "editor.fontSize": 14,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    // Enable linter in workspace settings.json 
+    "tslint.enable": false, 
+    "prettier.singleQuote": true,
+    // Enable formatOnSave in workspace settings.json
+    // because it messes up PowerShell CloudFormation AWS CLI
+    // Parameter key/val pairs, and a bug in the Redhat yaml
+    // plug-in removes CloudFormation instrinsic functions.
+    "editor.formatOnSave": false,
+		"editor.bracketPairColorization.enabled": true,
+		"editor.guides.bracketPairs": "active",
+    // Enable/disable default YAML formatter (requires restart)
+    "yaml.format.enable": true,
+    "yaml.validate": false,
+    // CloudFormation intrinsic Functions
+    "yaml.customTags": [
+			"!Base64 mapping",
+			"!ImportValue mapping",
+			"!Ref scalar",
+			"!Sub scalar",
+			"!GetAZs scalar",
+			"!Condition scalar",
+			"!ImportValue",
+			"!And sequence",
+			"!Equals sequence",
+			"!If sequence",
+			"!FindInMap sequence",
+			"!Join sequence",
+			"!Not sequence",
+			"!Or sequence",
+			"!Select sequence",
+			"!Split sequence",
+			"!GetAtt sequence",
+			"!And",
+			"!If",
+			"!Not",
+			"!Equals",
+			"!Or",
+			"!FindInMap",
+			"!Base64",
+			"!Join",
+			"!Cidr",
+			"!Ref",
+			"!Sub",
+			"!Sub sequence",
+			"!GetAtt",
+			"!GetAZs",
+			"!ImportValue sequence",
+			"!Select",
+			"!Split"
+		],
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.autoIndent": "full",
+      "editor.formatOnSave": false
+    },
+    "python.venvPath": "C:\\Users\\3364324\\Envs",
+    "python.linting.enabled": true,
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "C:\\Program Files\\Python39\\Scripts\\pylint.exe",
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfPath": "C:\\Python27\\Scripts\\yapf.exe",
+    "python.formatting.yapfArgs": [
+      "--style",
+      "{based_on_style: chromium, spaces_before_comment = 2, split_before_logical_operator = true}"
+    ],
+    "editor.rulers": [80],
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.minimap.enabled": false,
+    "sync.gist": "guid-of-my-gist-goes-here",
+    "sync.host": "",
+    "sync.pathPrefix": "",
+    "sync.quietSync": false,
+    "sync.askGistName": false,
+    "sync.removeExtensions": true,
+    "sync.syncExtensions": true,
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastUpload": "2018-08-23T16:38:09.883Z",
+    "sync.lastDownload": "",
+    "sync.forceDownload": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.fontFamily": "Consolas, 'Lucida Console', 'Courier New', monospace",
+    "workbench.editorAssociations": {
+      "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "redhat.telemetry.enabled": false,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.tabs.enabled": true,
+    "terminal.integrated.profiles.windows": {
+      "PowerShell": {
+        "source": "PowerShell",
+        "icon": "terminal-powershell"
+      },
+      "Command Prompt": {
+        "path": [
+          "${env:windir}\\Sysnative\\cmd.exe",
+          "${env:windir}\\System32\\cmd.exe"
+        ],
+        "args": [],
+        "icon": "terminal-cmd"
+      },
+      "Git Bash": {
+        "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+        "cursorColor": "#FFFF00",
+        "cursorShape": "filledBox",
+        "guid": "{d57e0f12-a9c5-4cf0-8680-9ab5be651a2e}",
+        "icon": "C:\\Program Files\\Git\\Git-Icon.png",
+        "name": "Git Bash"
+      },
+      "Mingw64": {
+        "path": "powershell",
+        "args": ["C:/msys64/msys2_shell.cmd", "-defterm ", "-here", "-no-start", "-mingw"],
+        "fontFace": "Lucida Console",
+        "fontSize": 9,
+        "guid": "{17da3cac-b318-431e-8a3e-7fcdefe6d114}",
+        "icon": "C:/msys64/mingw64.ico",
+        "name": "MINGW64 / MSYS2",
+        "startingDirectory": "C:/msys64/home/%USERNAME%"
+      },
+      "Msys2": {
+        "path": "C:/msys64/msys2_shell.cmd",
+        "args": ["-defterm", "-here", "-no-start", "-msys"],
+        "fontFace": "Lucida Console",
+        "fontSize": 9,
+        "guid": "{71160544-14d8-4194-af25-d05feeac7233}",
+        "icon": "C:/msys64/msys2.ico",
+        "name": "MSYS / MSYS2",
+        "startingDirectory": "C:/msys64/home/%USERNAME%"
+      }
+    },
+"workbench.colorTheme": "Kimbie Dark",
+"editor.cursorStyle": "line",
+"editor.insertSpaces": false,
+"editor.lineNumbers": "on",
+"editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+"editor.wordWrap": "off",
+"terminal.integrated.copyOnSelection": true,
+"security.workspace.trust.untrustedFiles": "open",
+"python.defaultInterpreterPath": "C:\\Program Files\\Python39\\python.exe",
+"python.pythonPath": "C:\\Program Files\\Python39\\python.exe",
+"yaml.schemas": {
+	"file:///c%3A/Users/3364324/AppData/Roaming/Code/User/globalStorage/amazonwebservices.aws-toolkit-vscode/cloudformation.schema.json": [
+		"template.yml"
+	],
+	"file:///c%3A/Users/3364324/AppData/Roaming/Code/User/globalStorage/amazonwebservices.aws-toolkit-vscode/sam.schema.json": [
+		"adminapp/template.yml",
+		"template.yaml"
+	],
+	"file:///c%3A/Users/3364324/.vscode/extensions/atlassian.atlascode-2.10.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+},
+"atlascode.jira.jqlList": [
+	{
+		"id": "cdd0e2c8-f8ca-4f18-89ab-6490ed8fa713",
+		"enabled": true,
+		"name": "My humanify Issues",
+		"query": "assignee = currentUser() AND resolution = Unresolved ORDER BY lastViewed DESC",
+		"siteId": "1c019deb-58e4-40df-86ed-d9108f566d56",
+		"monitor": true
+	}
+],
+"atlascode.jira.lastCreateSiteAndProject": {
+	"siteId": "1c019deb-58e4-40df-86ed-d9108f566d56",
+	"projectKey": "AC"
+},
+"aws.telemetry": false,
+"aws.profile": "profile:msp_helpdesk",
+"vscode-neovim.neovimExecutablePaths.win32": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
+"vscode-neovim.neovimInitVimPaths.win32": "C:\\tools\\neovim\\Neovim\\share\\nvim\\sysinit.vim",
+"vscode-neovim.revealCursorScrollLine": true,
+"vscode-neovim.useCtrlKeysForNormalMode": false,
+"json.schemas": []
+  }

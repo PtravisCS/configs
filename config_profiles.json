@@ -1,14 +1,14 @@
 {
   "profiles": {
     "work": {
-      ".bashrc": "\\\\wsl$/Debian/home/paul",
-      ".bash_aliases": "\\\\wsl$/Debian/home/paul",
-      ".vimrc": "~\\_vimrc",
-      "init.vim": "~\\AppData/Local//nvim",
-      "./init.vim": "\\\\wsl$/Debian/home/paul/.config/nvim/",
-      "Microsoft.PowerShell_profile.ps1": "~\\OneDrive - TeleTech Holdings, Inc\\Documents\\WindowsPowerShell\\",
-      "vscode_settings.json": "~/Appdata/Roaming/code/user/settings.json",
-      "windows_terminal_settings.json": "C:\\Users\\3364324\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState"
+      "./config_files/.bashrc": "\\\\wsl$/Debian/home/paul",
+      "./config_files/.bash_aliases": "\\\\wsl$/Debian/home/paul",
+      "./config_files/.vimrc": "~\\_vimrc",
+      "./config_files/init.vim": "~\\AppData/Local//nvim",
+      "./config_files/init.vim": "\\\\wsl$/Debian/home/paul/.config/nvim/",
+      "./config_files/Microsoft.PowerShell_profile.ps1": "~\\OneDrive - TeleTech Holdings, Inc\\Documents\\WindowsPowerShell\\",
+      "./config_files/vscode_settings.json": "~/Appdata/Roaming/code/user/settings.json",
+      "./config_files/windows_terminal_settings.json": "C:\\Users\\3364324\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState"
     },
     "home": {
 

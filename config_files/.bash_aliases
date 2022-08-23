@@ -1,0 +1,12 @@
+alias cls='clear'
+alias del='rm'
+alias restart='sudo shutdown 0 -r'
+alias rust='rustc'
+alias ghc='stack ghc --allow-different-user'
+alias ghci='stack ghci --allow-different-user'
+alias hello='echo hello, world'
+alias top='sudo top -Eg'
+alias please='sudo !!'
+alias psh="pwsh"
+alias powershell="pwsh"
+alias note='cd ~/notes && date +%c | cat >> `date +%F` ; nvim $(date +%F);echo|tac >> `date +%F` && cd -'
