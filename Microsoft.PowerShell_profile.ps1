@@ -56,5 +56,18 @@ function slm {
 
 }
 
+function potato {
+
+  echo "Potato"
+
+}
+
+function edit_profile {
+
+  vi $PROFILE
+
+}
+
 New-Alias vi nvim
 Set-PSReadLineOption -EditMode Vi
+Import-Module -Name Terminal-Icons

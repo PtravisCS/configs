@@ -10,6 +10,8 @@
     // Parameter key/val pairs, and a bug in the Redhat yaml
     // plug-in removes CloudFormation instrinsic functions.
     "editor.formatOnSave": false,
+		"editor.bracketPairColorization.enabled": true,
+		"editor.guides.bracketPairs": "active",
     // Enable/disable default YAML formatter (requires restart)
     "yaml.format.enable": true,
     "yaml.validate": false,
@@ -150,7 +152,7 @@
 		"adminapp/template.yml",
 		"template.yaml"
 	],
-	"file:///c%3A/Users/3364324/.vscode/extensions/atlassian.atlascode-2.9.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+	"file:///c%3A/Users/3364324/.vscode/extensions/atlassian.atlascode-2.10.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
 },
 "atlascode.jira.jqlList": [
 	{

@@ -96,10 +96,32 @@ def copyFiles(keys: List[str], configs: Dict[str, str]) -> None:
         copy(i, expandPath(configs[i]))
 
 def getIntegerInput(prompt: str) -> int:
+    '''
+    Gets input from user and converts it to an integer.
+
+        Parameters:
+            prompt (str): The prompt to display to the user.
+
+        Returns:
+            number (int): The number returned from the user.
+    '''
+
     number: int = int(input(prompt))
     return number 
 
 def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
+    '''
+    Wraps the getJsonFromFile method in a try catch block.
+
+    Gets JSON data from a file as a dictionary.
+
+        Parameters:
+            file (str): A string representing the path to file.
+
+        Returns:
+            data (Dict[str, str]): A dictionary containing the JSON data from the file
+    '''
+
     try: 
         data: Dict[str, str] = getJsonFromFile(file)
 
@@ -110,6 +132,16 @@ def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
     return data
 
 def selectProfileNum(data: Dict[str, str]) -> int:
+    '''
+    Gets a list of profiles and prints them to screen then has the user select from them.
+
+        Parameters:
+            data (Dict[str, str]): A dictionary representing the JSON data from the config file.
+
+        Returns:
+            profileNum (in): A number representing the profile number the user selected.
+    '''
+
     print("\nPlease Choose a Profile: \n")
 
     profiles: List[str] = getListOfProfiles(data)
@@ -139,7 +171,7 @@ def getKeys(dictionary: Dict[str, str]) -> List[str]:
 def getConfigs(data: Dict[str, str], profile: str) -> Dict[str, str]:
     return data['profiles'][profile]
 
-def main() -> None:
+def main() -> int:
     data: Dict[str, str] = getJsonDataFromFile('config_profiles.json')
 
     profileNum: int = selectProfileNum(data) 
@@ -151,6 +183,8 @@ def main() -> None:
     keys: List[str] = getKeys(configs)
 
     copyFiles(keys, configs)
+
+    return 0
 
 # Call main function at start of program
 # There is no _need_ for a main function for this program, but I prefer it over unnested "global" code.
