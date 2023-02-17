@@ -9,6 +9,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+" Plug 'https://github.com/moll/vim-bbye'
+Plug 'famiu/bufdelete.nvim'
 
 call plug#end()
 
@@ -70,6 +72,8 @@ nnoremap <leader>ga :!git add %<cr>
 nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
 nnoremap <leader>C <cmd>CHADopen<cr>
+nnoremap :Bd :Bdelete<cr>
+nnoremap :Bw :Bwipeout<cr>
 
 if has('unix')
   nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
