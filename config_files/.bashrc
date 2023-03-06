@@ -113,8 +113,13 @@ bind '"\t":menu-complete'
 set -o vi
 
 mkcd() {
- mkdir $1
- cd $1
+
+  if [ ! -d "$1" ]; then
+    mkdir -p $1
+  fi
+
+  cd $1
+ 
 }
 
 cdls() {
@@ -201,6 +206,28 @@ gitStatus() {
 
 }
 
+note() {
+
+  local category
+  printf "Category: "
+  read -r category
+
+  local topic
+  printf "Topic: "
+  read -r topic
+
+  local path=`printf ~/notes/$category`
+
+  mkcd $path
+  
+  printf "$(date +%c)\n$topic\n" | cat >> "$topic"
+  nvim "$topic"
+  echo|tac >> "$topic"
+
+  cd -
+
+}
+
 black=$(tput setaf 0)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
@@ -219,3 +246,10 @@ default_colour=$(tput setaf 9)
 
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 #PS1='$red$(gitStatus && echo "\n")$yellow${debian_chroot:+($debian_chroot)}$(echo $green)\u@\h$white:$blue\w$white\$ '
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export GIT_EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH"
+#export MANPAGER="$HOME/.local/bin/nvr -s +Man!"
+export MANPAGER="nvim -c 'Man!' -"
