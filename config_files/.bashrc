@@ -16,7 +16,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100000
+HISTSIZE=1000
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -25,7 +25,10 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-shopt -s globstar
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -34,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -81,6 +84,18 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -101,15 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
-
-#Allows cycling through options when pressing tab to autocomplete
 bind '"\t":menu-complete'
 
-#Set BASH to use vi mode to edit lines
 set -o vi
 
 mkcd() {
@@ -119,81 +127,80 @@ mkcd() {
   fi
 
   cd $1
- 
+
 }
 
-cdls() {
-  cd $1
-  ls
+cdls () {
+	cd $1
+	ls
 }
 
 crlf2lf() {
 
-  perl -p -e 's/\r$//' < $1 > tmpcrlf 
-  mv tmpcrlf $1
+	perl -p -e 's/\r$//' < $1 > tmpcrlf
+	mv tmpcrlf $1
 
 }
 
 statls() {
+	while getopts "ah" o; do
+		case "$o" in
+			a)
+				all=1;
+				;;
+			h)
+				echo "Usage: statls [-ah] <file/director name>"
+				echo "-a: displays hidden files"
+				echo "-h: displays this help message"
+				;;
+			*)
+				echo "Usage: statls [-ah] <file/directory name>"
+				echo "-a: displays hidden files"
+				echo "-h: displays this help message"
+				;;
+		esac
+	done
 
-  while getopts "ah" o; do
-    case "$o" in
-      a)
-	all=1;
-	;;
-      h)
-        echo "Usage: statls [-ah] <file/director name>" 
-	echo "-a: displays hidden files"
-	echo "-h: displays this help message"
-	;;
-      *)
-        echo "Usage: statls [-ah] <file/director name>" 
-	echo "-a: displays hidden files"
-	echo "-h: displays this help message"
-	;;
-    esac
-  done
-
-  shift $(($OPTIND - 1));
-  if [[ -z "$1" ]]
-  then
+	shift $(($OPTIND - 1));
+	if [[ -z "$1" ]]
+	then
     directory="."
-  else
+	else
     directory=$1
-  fi
+	fi
 
-  if [[ $all != 0 ]]
-  then
+	if [[ $all != 0 ]]
+	then
     local file_list="$(ls -a $directory)"
-  else
+	else
     local file_list="$(ls $directory)"
-  fi
+	fi
 
-  local output=""
+	local output=""
 
-  for f in $file_list
-  do
-    output+="$f \t $(stat $f | egrep -o '\([0-9]{4}\/[dwrx-]{10}\)') \t $(file $f | cut -d ':' -f 2)\n"
-  done
+	for f in $file_list
+	do
+    output+="$f \t $(stat $f | egrep -o '\([0-9]{4}\/[dwrx-]{10}\)') \t $(stat -c %U:%G $f) \t $(file $f | cut -d ':' -f 2)\n"
+	done
 
-  echo -e $output | awk -F '\t' '{printf "%-30s %-14s %-30s\n", $1, $2, $3}'
+	echo -e $output | awk -F '\t' '{printf "%-30s %-14s %-20s %-30s\n", $1, $2, $3, $4}'
 
 }
 
 gitBranch() {
 
-  local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) 
+  local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
   echo "$gitBranch"
 
 }
 
 gitStatus() {
 
-  local gitBranch=$(gitBranch) 
+  local gitBranch=$(gitBranch)
 
   if [[ -n "$gitBranch" ]]
   then
-    local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]") 
+    local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]")
 
     if [[ -z "$gitStatus" ]]
     then
@@ -220,7 +227,9 @@ note() {
 
   mkcd $path
   
-  printf "$(date +%c)\n$topic\n" | cat >> "$topic"
+  printf -- "-------------------------------------" >> "$topic"
+  printf "\n$(date +%c)\n$topic\n" | cat >> "$topic"
+  printf -- "-------------------------------------" >> "$topic"
   nvim "$topic"
   echo|tac >> "$topic"
 
@@ -241,11 +250,14 @@ default_colour=$(tput setaf 9)
 # /033 = escape
 # 0;31m = red
 # 00m = reset
-# 1;32m = light green 
+# 1;32m = light green
 # 01;34m = light blue
 
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-#PS1='$red$(gitStatus && echo "\n")$yellow${debian_chroot:+($debian_chroot)}$(echo $green)\u@\h$white:$blue\w$white\$ '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
