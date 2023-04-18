@@ -200,7 +200,7 @@ gitStatus() {
 
   if [[ -n "$gitBranch" ]]
   then
-    /bin/git fetch 2>/dev/null
+    /bin/git fetch --multiple 2>/dev/null
     behind=$(/bin/git rev-list --count HEAD..@{u} 2>/dev/null) 
     ahead=$(/bin/git rev-list --count @{u}..HEAD 2>/dev/null) 
     temp=$IFS
