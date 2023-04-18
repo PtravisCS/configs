@@ -203,6 +203,10 @@ gitStatus() {
     /bin/git fetch 2>/dev/null
     behind=$(/bin/git rev-list --count HEAD..@{u} 2>/dev/null) 
     ahead=$(/bin/git rev-list --count @{u}..HEAD 2>/dev/null) 
+    temp=$IFS
+    IFS=$'\n'
+    changed=($(/bin/git status --porcelain 2>/dev/null))
+    IFS=$temp
 
     if [[ $behind -eq 0 ]] && [[ $ahead -eq 0 ]]; then
       gitstatus='[=]'
@@ -214,9 +218,12 @@ gitStatus() {
       gitstatus="[b: $behind | a: $ahead]"
     fi
 
-    #local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]")
+    if [[ ${#changed[@]} -ne 0 ]]; then
+      num_changes=${#changed[@]}
+      change_string="[c: $num_changes]"
+    fi
 
-    printf "$gitBranch | $gitstatus\n "
+    printf "$gitBranch | $gitstatus$change_string\n "
   fi
 
 }
