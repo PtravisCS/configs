@@ -262,6 +262,20 @@ cyan=$(tput setaf 6)
 white=$(tput setaf 7)
 default_colour=$(tput setaf 9)
 
+rainbow() {
+
+  for x in {0..8}; do 
+      for i in {30..37}; do 
+          for a in {40..47}; do 
+              printf "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "
+          done
+          echo
+      done
+  done
+  printf "\n${default_colour}"
+
+}
+
 # All Escapes
 #
 # Color       Fore    Back
