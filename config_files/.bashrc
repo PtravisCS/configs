@@ -223,7 +223,7 @@ gitStatus() {
       change_string="[c: $num_changes]"
     fi
 
-    printf "$gitBranch | $gitstatus$change_string\n "
+    printf "\uE0A0 $gitBranch | $gitstatus$change_string\n "
   fi
 
 }
@@ -266,21 +266,21 @@ default_colour=$(tput setaf 9)
 #
 # Color       Fore    Back
 # --------    ----    ----
-# Black         30      40
-# Red           31      41
-# Green         32      42
-# Brown         33      43
-# Blue          34      44
-# Purple        35      45
-# Cyan          36      46
-# L-Gray        37      47
-# D-Gray        1;30    1;40
-# L-Red         1;31    1;41
-# L-Green       1;32    1;42
-# Yellow        1;33    1;44
-# L-Purple      1;35    1;45
-# L-Cyan        1;36    1;46
-# White         1;37    1;47
+# Black       0;30    0;40
+# Red         0;31    0;41
+# Green       0;32    0;42
+# Brown       0;33    0;43
+# Blue        0;34    0;44
+# Purple      0;35    0;45
+# Cyan        0;36    0;46
+# L-Gray      0;37    0;47
+# D-Gray      1;30    1;40
+# L-Red       1;31    1;41
+# L-Green     1;32    1;42
+# Yellow      1;33    1;44
+# L-Purple    1;35    1;45
+# L-Cyan      1;36    1;46
+# White       1;37    1;47
 #
 # 0 - Normal Characters
 # 1 - Bold Characters
@@ -288,16 +288,30 @@ default_colour=$(tput setaf 9)
 # 5 - Blinking Characters
 # 7 - Reverse Video Characters
 #
-# ----------------
-# COLORS I'M USING
-# ----------------
+# ---------------
+# CURSOR MOVEMENT
+# ---------------
+# [<l>;<c>H = Move cursor to line and column specified
+# [<n>A     = Move cursor up N lines
+# [<n>B     = Move the cursor down N lines
+# [<n>C     = Move the cursor forward N columns
+# [<n>D     = Move the cursor backc N columns
+# [2J       = Clear screen and move cursor to (0,0)
+# [k        = erase to end of line
+#
+# -----------------
+# ESCAPES I'M USING
+# -----------------
+# \[ = start non-printing characters
+# \] = end non-printing characters
 # \033 = escape
-# 0;31m = red
-# 00m = reset
-# 1;32m = light green
-# 01;34m = light blue
+# [\1D = backspace cursor 1 character
+# [0;31m = red
+# [00m = reset
+# [1;32m = light green
+# [01;34m = light blue
 
-PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\033[0;31m\]$(gitStatus)\[\033[1D\]\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
