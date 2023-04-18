@@ -200,15 +200,23 @@ gitStatus() {
 
   if [[ -n "$gitBranch" ]]
   then
-    local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]")
+    /bin/git fetch 2>/dev/null
+    behind=$(/bin/git rev-list --count HEAD..@{u} 2>/dev/null) 
+    ahead=$(/bin/git rev-list --count @{u}..HEAD 2>/dev/null) 
 
-    if [[ -z "$gitStatus" ]]
-    then
-      printf "$gitBranch | [Up To Date]\n "
+    if [[ $behind -eq 0 ]] && [[ $ahead -eq 0 ]]; then
+      gitstatus='[=]'
+    elif [[ $behind -ne 0 ]] && [[ $ahead -eq 0 ]]; then
+      gitstatus="[b: $behind]"
+    elif [[ $ahead -ne 0 ]] && [[ $behind -eq 0 ]]; then
+      gitstatus="[a: $ahead]"
     else
-      printf "$gitBranch | $gitStatus\n "
+      gitstatus="[b: $behind | a: $ahead]"
     fi
 
+    #local gitStatus=$(git status -bs 2>/dev/null | grep -o "\\[[^]]*]")
+
+    printf "$gitBranch | $gitstatus\n "
   fi
 
 }
@@ -247,7 +255,36 @@ cyan=$(tput setaf 6)
 white=$(tput setaf 7)
 default_colour=$(tput setaf 9)
 
-# /033 = escape
+# All Escapes
+#
+# Color       Fore    Back
+# --------    ----    ----
+# Black         30      40
+# Red           31      41
+# Green         32      42
+# Brown         33      43
+# Blue          34      44
+# Purple        35      45
+# Cyan          36      46
+# L-Gray        37      47
+# D-Gray        1;30    1;40
+# L-Red         1;31    1;41
+# L-Green       1;32    1;42
+# Yellow        1;33    1;44
+# L-Purple      1;35    1;45
+# L-Cyan        1;36    1;46
+# White         1;37    1;47
+#
+# 0 - Normal Characters
+# 1 - Bold Characters
+# 4 - Underlined Characters
+# 5 - Blinking Characters
+# 7 - Reverse Video Characters
+#
+# ----------------
+# COLORS I'M USING
+# ----------------
+# \033 = escape
 # 0;31m = red
 # 00m = reset
 # 1;32m = light green
