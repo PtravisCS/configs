@@ -52,12 +52,6 @@ function Prompt {
 }
 #>
 
-function slm {
-
-  cd "c:\Users\3364324\code\slm"
-
-}
-
 function potato {
 
   echo "Potato"
