@@ -1,0 +1,9 @@
+startup_message off
+
+chdir
+
+caption always "%{= bb}%{+b w}%n %t %h %= %H %c"
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+#escape '\0033''\0141'
+

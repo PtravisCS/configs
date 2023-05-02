@@ -200,7 +200,7 @@ gitStatus() {
 
   if [[ -n "$gitBranch" ]]
   then
-    /bin/git fetch --multiple 2>/dev/null
+    /bin/git fetch --multiple --no-tags 2>/dev/null
     behind=$(/bin/git rev-list --count HEAD..@{u} 2>/dev/null) 
     ahead=$(/bin/git rev-list --count @{u}..HEAD 2>/dev/null) 
     temp=$IFS
@@ -223,7 +223,7 @@ gitStatus() {
       change_string="[c: $num_changes]"
     fi
 
-    printf "\uE0A0 $gitBranch | $gitstatus$change_string\n "
+    printf "\u256D\u2574\uE0A0 $gitBranch | $gitstatus$change_string\n\u2570\u2574"
   fi
 
 }
@@ -325,7 +325,8 @@ rainbow() {
 # [1;32m = light green
 # [01;34m = light blue
 
-PS1='\[\033[0;31m\]$(gitStatus)\[\033[1D\]\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PS1='\[\033[0;31m\]$(gitStatus)\[\033[1D\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
