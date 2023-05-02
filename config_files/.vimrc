@@ -1,4 +1,3 @@
-
 " Syntax Highlighting
 syntax on
 
@@ -8,6 +7,7 @@ set tabstop=2
 set autoindent
 set smartindent
 set expandtab
+set title
 
 " Automatically open new splits to the right and bottom respectively
 " set splitright
@@ -23,4 +23,5 @@ nnoremap <leader>mk :!./.mkbuild<cr>
 nnoremap <leader>ga :!git add %<cr>
 nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
-
+nnoremap <left> bp
+nnoremap <right> bn
