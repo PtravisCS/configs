@@ -1,0 +1,20 @@
+[user]
+	name = travisp
+	email = paul.travis@michigansugar.com
+[core]
+	editor = nvim
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = true
+[alias]
+	diff = difftool
+	d = difftool
+[merge]
+	tool = nvimdiff
+  conflictstyle = diff3
+[mergetool]
+  prompt = true
+	keepBackup = false
+[mergetool "nvimdiff"]
+  layout = LOCAL,MERGED,REMOTE

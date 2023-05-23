@@ -1,14 +1,14 @@
 {
   "profiles": {
     "work": {
-      "./config_files/.bashrc": "\\\\wsl$/Debian/home/paul",
-      "./config_files/.bash_aliases": "\\\\wsl$/Debian/home/paul",
-      "./config_files/.vimrc": "~\\_vimrc",
-      "./config_files/init.vim": "~\\AppData/Local//nvim",
-      "./config_files/init.vim": "\\\\wsl$/Debian/home/paul/.config/nvim/",
-      "./config_files/Microsoft.PowerShell_profile.ps1": "~\\OneDrive - TeleTech Holdings, Inc\\Documents\\WindowsPowerShell\\",
-      "./config_files/vscode_settings.json": "~/Appdata/Roaming/code/user/settings.json",
-      "./config_files/windows_terminal_settings.json": "C:\\Users\\3364324\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState"
+      "./config_files/.bashrc": "/home/travisp",
+      "./config_files/.bash_aliases": "/home/travisp",
+      "./config_files/.screenrc": "/home/travisp",
+      "./config_files/.vimrc": "/home/travisp",
+      "./config_files/.tmux.conf": "/home/travisp/",
+      "./config_files/Microsoft.PowerShell_profile.ps1": "/home/travisp/.config/powershell/",
+      "./config_files/init.vim": "/home/travisp/.config/nvim/",
+      "./config_files/.gitconfig": "/home/travisp/"
     },
     "home": {
 
