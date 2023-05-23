@@ -1,3 +1,4 @@
+#!/bin/python3
 import json
 from shutil import copy
 from os.path import expanduser, expandvars, normcase
@@ -40,7 +41,7 @@ def enumerateArray(data: Dict[str, str], startingX: int) -> None:
 
 def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
     '''
-    Opens the provided file and loads the JSON data into a Dictionary
+    Opens the provided JSON file and loads it into a Dictionary
 
         Parameters:
             fileName (str): A string representing the path to the file

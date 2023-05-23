@@ -14,7 +14,14 @@
 
     },
     "server": {
-
+      "./config_files/.bashrc": "~/",
+      "./config_files/.bash_aliases": "~/",
+      "./config_files/.screenrc": "~/",
+      "./config_files/.vimrc": "~/",
+      "./config_files/.tmux.conf": "~/",
+      "./config_files/Microsoft.PowerShell_profile.ps1": "~/.config/powershell/",
+      "./config_files/.init.vim": "~/.config/nvim/",
+      "./config_files/.gitconfig": "~/"
     }
   }
 }
