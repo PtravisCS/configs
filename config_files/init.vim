@@ -10,6 +10,7 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'https://github.com/tpope/vim-surround.git'
+Plug 'echasnovski/mini.jump2d'
 
 call plug#end()
 Plug 'https://github.com/moll/vim-bbye'
@@ -17,6 +18,7 @@ Plug 'https://github.com/moll/vim-bbye'
 " Enable Plugins that require it
 lua require('tabline').setup()
 lua require('lualine').setup()
+lua require('mini.jump2d').setup()
 
 set encoding=UTF-8
 
