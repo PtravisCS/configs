@@ -78,6 +78,7 @@ nnoremap <leader>C <cmd>CHADopen<cr>
 nnoremap <Esc> <C-\><C-n>
 nnoremap <left> bp
 nnoremap <right> bn
+nnoremap / /\v
 
 " Close all files when pressing f4
 map <F4> :qa!<CR>

@@ -25,3 +25,4 @@ nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
 nnoremap <left> bp
 nnoremap <right> bn
+nnoremap / /\v

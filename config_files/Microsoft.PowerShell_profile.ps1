@@ -77,7 +77,7 @@ function prompt {
 # Alias Functions
 function s { git status }
 function add { git add . }
-function c { git commit }
+function c ($params) { git commit $params }
 function p { git push }
 function d { git d }
 function psrc { nvim $PROFILE }
