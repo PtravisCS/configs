@@ -7,13 +7,16 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'echasnovski/mini.jump2d'
+Plug 'https://github.com/moll/vim-bbye'
 
 call plug#end()
-Plug 'https://github.com/moll/vim-bbye'
 
 " Enable Plugins that require it
 lua require('tabline').setup()
@@ -65,6 +68,9 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" Auto start autocomplete plugin
+let g:coq_settings = { 'auto_start': 'shut-up' }
+
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
@@ -83,9 +89,7 @@ nnoremap / /\v
 " Close all files when pressing f4
 map <F4> :qa!<CR>
 
-inoremap <left> bp
-inoremap <right> bn
-
+" Map -ev to open init.vim for linux and windows
 if has('unix')
   nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
 endif
@@ -94,6 +98,7 @@ if has('win32') || has('win32unix')
   nnoremap <leader>ev <cmd>badd $HOME\AppData\Local\nvim\init.vim<cr><cmd>b init.vim<cr>
 endif
 
+" Map -v to open window picker
 nnoremap <silent> <leader>w :lua require('nvim-window').pick()<CR>
 
 " Syntax Highlighting
