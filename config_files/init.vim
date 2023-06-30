@@ -15,6 +15,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'echasnovski/mini.jump2d'
 Plug 'https://github.com/moll/vim-bbye'
+Plug 'dense-analysis/ale' " Linter
 
 call plug#end()
 
@@ -119,3 +120,12 @@ filetype plugin indent on
 set showcmd " Show active command in lower right corner
 set mouse=n " Enable Mouse Mode
 set relativenumber " Show relative line numbers in files
+
+" Linting
+call ale#linter#Define('php', {
+\ 'name': 'phpcs',
+\ 'lsp': 'stdio',
+\ 'executable': 'phpcs',
+\ 'command': '',
+\ 'project_root': '.'
+\})
