@@ -100,7 +100,6 @@ sudo mv ./UbuntuMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 sudo chmod 644 ~/.local/share/fonts/UbuntuMonoNerdFontMono-Regular.ttf
 
 # Install nvr
-
 pip3 install neovim-remote
 
 # Install nvm
@@ -109,3 +108,9 @@ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc
 nvm install node
 nvm use node
+
+# Install Perl dependencies
+sudo cpan install 'LWP::Simple'
+sudo cpan install 'Mojo::DOM'
+sudo cpan install 'Term::ANSIColor'
+sudo cpan install 'IO::Interactive'
