@@ -11,7 +11,11 @@ sudo apt-get install clisp
 sudo apt-get install composer
 sudo apt-get install curl
 sudo apt-get install docker
+sudo apt-get install evolution
+sudo apt-get install evolution-ews
 sudo apt-get install ffmpeg
+sudo apt-get install flake8
+sudo apt-get install gdal-bin
 sudo apt-get install gimp
 sudo apt-get install git
 sudo apt-get install gnome-tweaks
@@ -31,6 +35,7 @@ sudo apt-get install npm
 sudo apt-get install openjdk-8-jre
 sudo apt-get install openssh-server
 sudo apt-get install perl-doc
+sudo apt-get install cpanminus
 sudo apt-get install php
 sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-fpm
@@ -59,6 +64,7 @@ sudo apt-get install r-base
 sudo apt-get install redis-server
 sudo apt-get install rename
 sudo apt-get install screen
+sudo apt-get install shellcheck
 sudo apt-get install smbclient
 sudo apt-get install solaar
 sudo apt-get install spell
@@ -66,13 +72,15 @@ sudo apt-get install tmux
 sudo apt-get install tree
 sudo apt-get install vim
 sudo apt-get install vlc
+sudo apt-get install wajig
 sudo apt-get install wl-clipboard
+sudo apt-get install x11vnc
 
 # Install Neovim
-cd ~/
+cd ~/ || return
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
 tar -xvzf nvim-linux64.tar.gz -C nvim-linux64
-cd nvim-linux64
+cd nvim-linux64 || (printf 'Unable to CD into nvim-linux64' && exit)
 rsync -a ./bin/ /usr/bin/
 rsync -a ./lib/ /usr/lib/
 rsync -a ./share/ /usr/share/
@@ -81,12 +89,23 @@ rsync -a ./man/ /usr/local/man
 sudo apt-get autoremove
 sudo apt-get install --fix-missing
 
-cd ~/
+cd ~/ || return
 rm -rf ./nvim-linux64.tar.gz
 rm -rf ./nvim-linux64
 
 # Install NerdFont
-cd ~/
+cd ~/ || return
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFontMono-Regular.ttf
 sudo mv ./UbuntuMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
 sudo chmod 644 ~/.local/share/fonts/UbuntuMonoNerdFontMono-Regular.ttf
+
+# Install nvr
+
+pip3 install neovim-remote
+
+# Install nvm
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+# shellcheck source=/home/travisp/.bashrc
+source ~/.bashrc
+nvm install node
+nvm use node
