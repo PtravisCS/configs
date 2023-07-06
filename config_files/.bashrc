@@ -123,15 +123,15 @@ set -o vi
 mkcd() {
 
   if [ ! -d "$1" ]; then
-    mkdir -p $1
+    mkdir -p "$1"
   fi
 
-  cd $1
+  cd "$1" || exit
 
 }
 
 cdls () {
-	cd $1
+	cd "$1" || exit
 	ls
 }
 
@@ -169,43 +169,47 @@ statls() {
     directory=$1
 	fi
 
+  local file_list
+
 	if [[ $all != 0 ]]
 	then
-    local file_list="$(ls -a $directory)"
+    file_list="$(ls -a "$directory")"
 	else
-    local file_list="$(ls $directory)"
+    file_list="$(ls "$directory")"
 	fi
 
 	local output=""
 
 	for f in $file_list
 	do
-    output+="$f \t $(stat $f | egrep -o '\([0-9]{4}\/[dwrx-]{10}\)') \t $(stat -c %U:%G $f) \t $(file $f | cut -d ':' -f 2)\n"
+    output+="$f \t $(stat "$f" | grep -Eo '\([0-9]{4}\/[dwrx-]{10}\)') \t $(stat -c %U:%G "$f  ") \t $(file "$f" | cut -d ':' -f 2)\n"
 	done
 
-	echo -e $output | awk -F '\t' '{printf "%-30s %-14s %-20s %-30s\n", $1, $2, $3, $4}'
+	echo -e "$output" | awk -F '\t' '{printf "%-30s %-14s %-20s %-30s\n", $1, $2, $3, $4}'
 
 }
 
 gitBranch() {
 
-  local gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  local gitBranch
+  gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
   echo "$gitBranch"
 
 }
 
 gitStatus() {
 
-  local gitBranch=$(gitBranch)
+  local gitBranch
+  gitBranch=$(gitBranch)
 
   if [[ -n "$gitBranch" ]]
   then
-    /bin/git fetch --multiple --no-tags 2>/dev/null
-    behind=$(/bin/git rev-list --count HEAD..@{u} 2>/dev/null) 
-    ahead=$(/bin/git rev-list --count @{u}..HEAD 2>/dev/null) 
+    git fetch --multiple --no-tags 2>/dev/null
+    behind=$(git rev-list --count "HEAD..@{u}" 2>/dev/null) 
+    ahead=$(git rev-list --count "@{u}..HEAD" 2>/dev/null) 
     temp=$IFS
     IFS=$'\n'
-    changed=($(/bin/git status --porcelain 2>/dev/null))
+    changed=($(git status --porcelain 2>/dev/null))
     IFS=$temp
 
     if [[ $behind -eq 0 ]] && [[ $ahead -eq 0 ]]; then
@@ -223,7 +227,7 @@ gitStatus() {
       change_string="[c: $num_changes]"
     fi
 
-    printf "\u256D\u2574\uE0A0 $gitBranch | $gitstatus$change_string\n\u2570\u2574"
+    printf "\u256D\u2574\uE0A0 %s | %s%s\n\u2570\u2574" "$gitBranch" "$gitstatus" "$change_string"
   fi
 
 }
@@ -238,9 +242,10 @@ note() {
   printf "Topic: "
   read -r topic
 
-  local path=`printf ~/notes/$category`
+  local path
+  path=$(printf "%s/notes/%s" "$HOME" "$category")
 
-  mkcd $path
+  mkcd "$path"
   
   printf -- "-------------------------------------" >> "$topic"
   printf "\n$(date +%c)\n$topic\n" | cat >> "$topic"
@@ -272,7 +277,7 @@ rainbow() {
           echo
       done
   done
-  printf "\n${default_colour}"
+  printf "\n%s" "${default_colour}"
 
 }
 
@@ -325,11 +330,12 @@ rainbow() {
 # [1;32m = light green
 # [01;34m = light blue
 
-#PS1='\[\033[0;31m\]$(gitStatus)\[\033[1D\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export NVM_DIR="$HOME/.nvm"
+# shellcheck source=/media/main/home/electracion/.nvm/nvm.sh
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# shellcheck source=/media/main/home/electracion/.nvm/bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export VISUAL=nvim
