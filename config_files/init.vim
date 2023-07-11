@@ -17,6 +17,8 @@ Plug 'echasnovski/mini.jump2d'
 Plug 'https://github.com/moll/vim-bbye'
 Plug 'dense-analysis/ale' " Linter
 Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
+Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 
 call plug#end()
 
@@ -88,6 +90,12 @@ nnoremap <left> bp
 nnoremap <right> bn
 nnoremap / /\v
 xnoremap <leader>r :Hypersonic<cr>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Close all files when pressing f4
 map <F4> :qa!<CR>
