@@ -37,7 +37,7 @@ def enumerateArray(data: Dict[str, str], startingX: int) -> None:
             Nothing
     '''
 
-    x: int = startingX 
+    x: int = startingX
     for i in data:
         print("{0}) {1}".format(x, i))
         x += 1
@@ -114,8 +114,14 @@ def getIntegerInput(prompt: str) -> int:
             number (int): The number returned from the user.
     '''
 
-    number: int = int(input(prompt))
-    return number 
+    number = None
+    while number is None:
+        try:
+            number: int = int(input(prompt))
+        except ValueError:
+            print("Value must be a number")
+
+    return number
 
 
 def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
