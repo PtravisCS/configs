@@ -74,7 +74,7 @@ sudo apt-get install vim
 sudo apt-get install vlc
 sudo apt-get install wajig
 sudo apt-get install wl-clipboard
-sudo apt-get install x11vnc
+sudo apt-get install ripgrep
 
 # Install Neovim
 cd ~/ || return
