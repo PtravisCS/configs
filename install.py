@@ -7,7 +7,8 @@ from typing import List, Dict
 
 def getListOfProfiles(data: Dict[str, str]) -> List[str]:
     '''
-    Returns a list of keys from the input dictionary corresponding to the config profiles.
+    Returns a list of keys from the input dictionary corresponding to the
+    config profiles.
 
         Parameters:
             data (Dict[str, str]): A dictionary representing JSON data

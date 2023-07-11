@@ -137,8 +137,8 @@ cdls () {
 
 crlf2lf() {
 
-	perl -p -e 's/\r$//' < $1 > tmpcrlf
-	mv tmpcrlf $1
+	perl -p -e 's/\r$//' < "$1" > tmpcrlf
+	mv tmpcrlf "$1"
 
 }
 
@@ -333,9 +333,9 @@ rainbow() {
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export NVM_DIR="$HOME/.nvm"
-# shellcheck source=/media/main/home/electracion/.nvm/nvm.sh
+# shellcheck source=/home/travisp/.nvm/nvm.sh
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# shellcheck source=/media/main/home/electracion/.nvm/bash_completion
+# shellcheck source=/home/travisp/.nvm/bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export VISUAL=nvim

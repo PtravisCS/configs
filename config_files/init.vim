@@ -7,7 +7,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " Intelisense autocomplete popup
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
@@ -16,6 +16,7 @@ Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'echasnovski/mini.jump2d'
 Plug 'https://github.com/moll/vim-bbye'
 Plug 'dense-analysis/ale' " Linter
+Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
 
 call plug#end()
 
@@ -86,6 +87,7 @@ nnoremap <Esc> <C-\><C-n>
 nnoremap <left> bp
 nnoremap <right> bn
 nnoremap / /\v
+xnoremap <leader>r :Hypersonic<cr>
 
 " Close all files when pressing f4
 map <F4> :qa!<CR>
@@ -129,3 +131,7 @@ call ale#linter#Define('php', {
 \ 'command': '',
 \ 'project_root': '.'
 \})
+
+let g:ale_fixers = {
+\ 'sql': ['sqlfluff']
+\}
