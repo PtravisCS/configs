@@ -47,11 +47,7 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
-}
-EOF
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -61,11 +57,7 @@ require'nvim-treesitter.configs'.setup {
       node_decremental = "grm",
     },
   },
-}
-EOF
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   }
@@ -73,7 +65,7 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " Auto start autocomplete plugin
-let g:coq_settings = { 'auto_start': 'shut-up' }
+let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long' }
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -109,7 +101,7 @@ if has('win32') || has('win32unix')
   nnoremap <leader>ev <cmd>badd $HOME\AppData\Local\nvim\init.vim<cr><cmd>b init.vim<cr>
 endif
 
-" Map -v to open window picker
+" Map -w to open window picker
 nnoremap <silent> <leader>w :lua require('nvim-window').pick()<CR>
 
 " Syntax Highlighting
@@ -119,7 +111,6 @@ syntax on
 set shiftwidth=2
 set tabstop=2
 set expandtab
-set title
 
 " Indent Settings
 set autoindent
@@ -130,6 +121,7 @@ filetype plugin indent on
 set showcmd " Show active command in lower right corner
 set mouse=n " Enable Mouse Mode
 set relativenumber " Show relative line numbers in files
+set title
 
 " Linting
 call ale#linter#Define('php', {
@@ -143,3 +135,37 @@ call ale#linter#Define('php', {
 let g:ale_fixers = {
 \ 'sql': ['sqlfluff']
 \}
+
+" Telescope configuration
+lua << EOF
+  -- Display images using terminal image viewer
+  require("telescope").setup {
+    defaults = {
+      preview = {
+        mime_hook = function(filepath, bufnr, opts)
+          local is_image = function(filepath)
+            local image_extensions = {'png','jpg'}   -- Supported image formats
+            local split_path = vim.split(filepath:lower(), '.', {plain=true})
+            local extension = split_path[#split_path]
+            return vim.tbl_contains(image_extensions, extension)
+          end
+          if is_image(filepath) then
+            local term = vim.api.nvim_open_term(bufnr, {})
+            local function send_output(_, data, _ )
+              for _, d in ipairs(data) do
+                vim.api.nvim_chan_send(term, d..'\r\n')
+              end
+            end
+            vim.fn.jobstart(
+              {
+                  'catimg', filepath  -- Terminal image viewer command
+              }, 
+              {on_stdout=send_output, stdout_buffered=true, pty=true})
+          else
+            require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+          end
+        end
+      },
+    }
+  }
+EOF
