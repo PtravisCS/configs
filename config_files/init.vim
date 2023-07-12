@@ -19,6 +19,8 @@ Plug 'dense-analysis/ale' " Linter
 Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'folke/noice.nvim'
+Plug 'MunifTanjim/nui.nvim'
 
 call plug#end()
 
@@ -26,6 +28,7 @@ call plug#end()
 lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
+lua require("noice").setup()
 
 set encoding=UTF-8
 
@@ -88,9 +91,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Close all files when pressing f4
-map <F4> :qa!<CR>
 
 " Map -ev to open init.vim for linux and windows
 if has('unix')
