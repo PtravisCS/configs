@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090,1091
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -333,14 +334,12 @@ rainbow() {
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export NVM_DIR="$HOME/.nvm"
-# shellcheck source=/home/travisp/.nvm/nvm.sh
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# shellcheck source=/home/travisp/.nvm/bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR=nvim
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$PATH"
 #export MANPAGER="$HOME/.local/bin/nvr -s +Man!"
 export MANPAGER="nvim -c 'Man!' -"
