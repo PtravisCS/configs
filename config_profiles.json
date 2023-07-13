@@ -1,14 +1,14 @@
 {
   "profiles": {
     "work": {
-      "./config_files/.bashrc": "/home/travisp",
-      "./config_files/.bash_aliases": "/home/travisp",
-      "./config_files/.screenrc": "/home/travisp",
-      "./config_files/.vimrc": "/home/travisp",
-      "./config_files/.tmux.conf": "/home/travisp/",
-      "./config_files/Microsoft.PowerShell_profile.ps1": "/home/travisp/.config/powershell/",
-      "./config_files/init.vim": "/home/travisp/.config/nvim/",
-      "./config_files/.gitconfig": "/home/travisp/"
+      "./config_files/.bashrc": "~/",
+      "./config_files/.bash_aliases": "~/",
+      "./config_files/.screenrc": "~/",
+      "./config_files/.vimrc": "~/",
+      "./config_files/.tmux.conf": "~/",
+      "./config_files/Microsoft.PowerShell_profile.ps1": "~/.config/powershell/",
+      "./config_files/init.vim": "~/.config/nvim/",
+      "./config_files/.gitconfig": "~/"
     },
     "home": {
 
