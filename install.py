@@ -7,16 +7,16 @@ from typing import List, Dict
 
 
 def getListOfProfiles(data: Dict[str, str]) -> List[str]:
-    '''
+    """
     Returns a list of keys from the input dictionary corresponding to the
     config profiles.
 
-        Parameters:
+        Args:
             data (Dict[str, str]): A dictionary representing JSON data
 
         Returns:
             profiles (List[str]): A list containing the set of profiles present in the dictionary
-    '''
+    """
 
     profiles: List[str] = []
 
@@ -27,16 +27,16 @@ def getListOfProfiles(data: Dict[str, str]) -> List[str]:
 
 
 def enumerateArray(data: Dict[str, str], startingX: int) -> None:
-    '''
+    """
     Enumerates and prints a dictionary to stdout.
 
-        Parameters:
+        Args:
             data (Dict[str,str]): A dictionary representing JSON data
             startingX (int): An integer representing the number to start enumerating from
 
         Returns:
             Nothing
-    '''
+    """
 
     x: int = startingX
     for i in data:
@@ -45,15 +45,18 @@ def enumerateArray(data: Dict[str, str], startingX: int) -> None:
 
 
 def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
-    '''
+    """
     Opens the provided JSON file and loads it into a Dictionary
 
-        Parameters:
+        Args:
             fileName (str): A string representing the path to the file
 
         Returns
             data (Dict[str, str]): A dictionary containing the JSON data from the provided file
-    '''
+
+        Raises:
+            FileNotFoundError: An error occured while opening the file specified by fileName.
+    """
 
     with open(fileName) as file:
         if not file.closed:
@@ -68,15 +71,15 @@ def getJsonDataFromFile(fileName: str) -> Dict[str, str]:
 
 
 def expandPath(path: str) -> str:
-    '''
+    """
     Cleans a provided file path, expanding the user directory, expanding variables, and normalizing the path case
 
-        Parameters:
+        Args:
             path (str): A path to be cleaned
 
         Returns
             path (str): A clean version of the initially passed path
-    '''
+    """
 
     path: str = expanduser(path)
     path: str = expandvars(path)
@@ -85,19 +88,19 @@ def expandPath(path: str) -> str:
 
 
 def copyFiles(keys: List[str], configs: Dict[str, str], dry_run: bool) -> None:
-    '''
+    """
     Copies files provided in "keys" to the corresponding path in config[key].
 
     Cleans paths before copying using the expandPath method.
     Also prints files being copied and intended path to stdOut
 
-        Parameters:
+        Args:
             keys (List[str]): A list of filenames to copy.
             configs (Dict[str, str]): A dictionary containing the path to copy files to where keys are the file name to copy.
 
         Returns
             None
-    '''
+    """
 
     for i in keys:
         if not dry_run:
@@ -108,15 +111,15 @@ def copyFiles(keys: List[str], configs: Dict[str, str], dry_run: bool) -> None:
 
 
 def getIntegerInput(prompt: str) -> int:
-    '''
+    """
     Gets input from user and converts it to an integer.
 
-        Parameters:
+        Args:
             prompt (str): The prompt to display to the user.
 
         Returns:
             number (int): The number returned from the user.
-    '''
+    """
 
     number = None
     while number is None:
@@ -129,17 +132,17 @@ def getIntegerInput(prompt: str) -> int:
 
 
 def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
-    '''
+    """
     Wraps the getJsonDataFromFile method in a try catch block.
 
     Gets JSON data from a file as a dictionary.
 
-        Parameters:
+        Args:
             file (str): A string representing the path to file.
 
         Returns:
             data (Dict[str, str]): A dictionary containing the JSON data from the file
-    '''
+    """
 
     try:
         data: Dict[str, str] = getJsonDataFromFile(file)
@@ -152,15 +155,15 @@ def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
 
 
 def selectProfileNum(data: Dict[str, str]) -> int:
-    '''
+    """
     Gets a list of profiles and prints them to screen then has the user select from them.
 
-        Parameters:
+        Args:
             data (Dict[str, str]): A dictionary representing the JSON data from the config file.
 
         Returns:
             profileNum (int): A number representing the profile number the user selected.
-    '''
+    """
 
     print("\nPlease Choose a Profile: \n")
 
@@ -174,16 +177,16 @@ def selectProfileNum(data: Dict[str, str]) -> int:
 
 
 def getSelectedProfile(profileNum: int, data: Dict[str, str]) -> str:
-    '''
+    """
     Converts the profile Dict to a list of profile names then returns the list item corresponding to profileNum.
 
-        Parameters:
+        Args:
             profileNum (int): A number corresponding to the selected profile's position in a list.
             data (Dict[str, str]): A dictionary representing the JSON data from the config file.
 
         Returns:
             profile (str): A string representing the name of the profile the user selected.
-    '''
+    """
 
     profiles: List[str] = getListOfProfiles(data)
 
@@ -193,15 +196,15 @@ def getSelectedProfile(profileNum: int, data: Dict[str, str]) -> str:
 
 
 def getKeys(dictionary: Dict[str, str]) -> List[str]:
-    '''
+    """
     Gets the names of config files as keys from the provided Dict. Converts this data to a list and returns it.
 
-        Parameters:
+        Args:
             dictionary (Dict[str, str]): A dictionary representing the JSON data from the config file.
 
         Returns:
             keys (List[str]): A string representing the name of the profile the user selected.
-    '''
+    """
     keys: List[str] = []
     for i in dictionary:
         keys.append(i)
@@ -214,13 +217,13 @@ def getConfigs(data: Dict[str, str], profile: str) -> Dict[str, str]:
 
 
 def createParser() -> argparse.ArgumentParser:
-    '''
+    """
     Gets a list of profiles and prints them to screen then has the user select from them.
     Creates a command line argument parser with the arguments --dry-run, -?/-h/--help, and -p/--profile
 
         Returns:
             parser (argparse.ArgumentParser): An argumment parser object.
-    '''
+    """
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser(
             prog='Config Installer',
@@ -236,15 +239,15 @@ def createParser() -> argparse.ArgumentParser:
 
 
 def getArgs(parser: argparse.ArgumentParser) -> Dict[str, str]:
-    '''
+    """
     Gets the names of config files as keys from the provided Dict. Converts this data to a list and returns it.
 
-        Parameters:
+        Args:
             dictionary (Dict[str, str]): A dictionary representing the JSON data from the config file.
 
         Returns:
             keys (List[str]): A string representing the name of the profile the user selected.
-    '''
+    """
 
     args: argparse.Namespace = parser.parse_args()
     args_dict: Dict[str, str] = vars(args)
