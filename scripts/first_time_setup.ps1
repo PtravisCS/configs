@@ -6,7 +6,7 @@ refreshenv
 choco install python3 -y
 choco install python2 -y
 choco install typescript -y
-choco install jdk11 -y 
+choco install jdk12 -y 
 choco install jdk8 -y
 
 # IDEs
@@ -46,4 +46,3 @@ refreshenv
 .\scripts\powershell_modules.ps1
 wsl --update
 wsl --install --distribution Debian
-python3 install.py

@@ -75,6 +75,7 @@ sudo apt-get install vlc
 sudo apt-get install wajig
 sudo apt-get install wl-clipboard
 sudo apt-get install ripgrep
+sudo apt-get install cargo
 
 # Install Neovim
 cd ~/ || return

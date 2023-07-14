@@ -20,5 +20,3 @@ code --install-extension rust-lang.rust-analyzer
 code --install-extension ban.spellright
 code --install-extension asvetliakov.vscode-neovim
 code --install-extension redhat.vscode-yaml
-
-
