@@ -19,8 +19,7 @@ Plug 'dense-analysis/ale' " Linter
 Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
-Plug 'folke/noice.nvim'
-Plug 'MunifTanjim/nui.nvim'
+Plug 'rcarriga/nvim-notify'
 
 call plug#end()
 
@@ -28,7 +27,7 @@ call plug#end()
 lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
-lua require("noice").setup()
+lua require("notify")
 
 set encoding=UTF-8
 
@@ -158,7 +157,7 @@ lua << EOF
             end
             vim.fn.jobstart(
               {
-                  'catimg', filepath  -- Terminal image viewer command
+                  'catimg', '-t', filepath  -- Terminal image viewer command
               }, 
               {on_stdout=send_output, stdout_buffered=true, pty=true})
           else
