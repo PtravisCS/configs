@@ -1,0 +1,66 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+	{
+		"key": "ctrl+shift+i",
+		"command": "-workbench.action.toggleDevTools",
+		"when": "isDevelopment"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-notebook.formatCell",
+		"when": "editorHasDocumentFormattingProvider && editorTextFocus && inCompositeEditor && notebookEditable && !editorReadonly && activeEditor == 'workbench.editor.notebook'"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-editor.action.formatDocument",
+		"when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-editor.action.formatDocument.none",
+		"when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorReadonly"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-notebook.format",
+		"when": "notebookEditable && !editorTextFocus && activeEditor == 'workbench.editor.notebook'"
+	},
+	{
+		"key": "ctrl+d",
+		"command": "-editor.action.addSelectionToNextFindMatch",
+		"when": "editorFocus"
+	},
+	{
+		"key": "ctrl+u",
+		"command": "-cursorUndo",
+		"when": "textInputFocus"
+	},
+	{
+		"key": "ctrl+e",
+		"command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+		"when": "inFilesPicker && inQuickOpen"
+	},
+	{
+		"key": "ctrl+e",
+		"command": "-workbench.action.quickOpen"
+	},
+	{
+		"key": "ctrl+w",
+		"command": "-workbench.action.closeActiveEditor"
+	},
+	{
+		"key": "ctrl+w",
+		"command": "-workbench.action.closeGroup",
+		"when": "activeEditorGroupEmpty && multipleEditorGroups"
+	},
+	{
+		"key": "enter",
+		"command": "leap.find",
+		"when": "neovim.mode == normal"
+	},
+	{
+		"key": "ctrl+enter",
+		"command": "-leap.find",
+		"when": "neovim.mode == normal"
+	}
+]
