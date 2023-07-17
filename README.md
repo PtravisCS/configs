@@ -1,8 +1,8 @@
 # Config Files
 
-My config files and basic scripts for use across all my systems.
-Use install.py to copy the config file to the correct location(s) based on the profiles configured in config_profiles.json.
-Use the first_time_setup.(sh|ps1) to install all the default programs I noramlly use across my systems and do some basic configurations.
+My config files and basic scripts for use across all my systems.  
+Use install.py to copy the config file to the correct location(s) based on the profiles configured in config_profiles.json.  
+Use the first_time_setup.(sh|ps1) to install all the default programs I noramlly use across my systems and do some basic configurations.  
 
 | Folder                         | Desc                                                                              |
 | -----------------------------  | --------------------------------------------------------------------------------- |
