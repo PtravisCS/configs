@@ -7,7 +7,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " Intelisense autocomplete popup
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq', 'do': ':COQdeps'} " Intelisense autocomplete popup
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
@@ -20,6 +20,7 @@ Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'rcarriga/nvim-notify'
+Plug 'folke/which-key.nvim'
 
 call plug#end()
 
@@ -27,11 +28,13 @@ call plug#end()
 lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
-lua require("notify")
+lua require('which-key').setup()
+lua vim.notify = require("notify")
 
 set encoding=UTF-8
 
 "required for gruvbox
+lua vim.opt.termguicolors = true --required for nvim notify
 colorscheme gruvbox
 set background=dark
 
@@ -90,6 +93,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fn <cmd>Telescope notify<cr>
 
 " Map -ev to open init.vim for linux and windows
 if has('unix')
@@ -168,3 +172,4 @@ lua << EOF
     }
   }
 EOF
+
