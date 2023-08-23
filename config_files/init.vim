@@ -30,6 +30,7 @@ lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
 lua require('which-key').setup()
+lua require('mini.map').setup()
 lua vim.notify = require("notify")
 
 set encoding=UTF-8
