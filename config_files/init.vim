@@ -21,7 +21,7 @@ Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
-Plug 'echasnovski/mini.map', { 'branch': 'stable' }
+Plug 'wfxr/minimap.vim'
 
 call plug#end()
 
@@ -30,7 +30,6 @@ lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
 lua require('which-key').setup()
-lua require('mini.map').setup()
 lua vim.notify = require("notify")
 
 set encoding=UTF-8
@@ -175,3 +174,7 @@ lua << EOF
   }
 EOF
 
+" Minimap configuration
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
