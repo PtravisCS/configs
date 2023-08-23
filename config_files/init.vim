@@ -21,6 +21,7 @@ Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
+Plug 'echasnovski/mini.map', { 'branch': 'stable' }
 
 call plug#end()
 
