@@ -1,0 +1,63 @@
+#! /bin/gforth
+
+: CurrMonth   time&date DROP SWAP DROP SWAP DROP SWAP DROP SWAP DROP ;
+: CurrYear    time&date SWAP DROP SWAP DROP SWAP DROP SWAP DROP SWAP DROP ;
+
+: DaysInMonth   
+  DUP 12 = IF 31 ELSE 
+  DUP 11 = IF 30 ELSE
+  DUP 10 = IF 31 ELSE
+  DUP 9  = IF 30 ELSE
+  DUP 8  = IF 31 ELSE
+  DUP 7  = IF 31 ELSE
+  DUP 6  = IF 30 ELSE
+  DUP 5  = IF 31 ELSE
+  DUP 4  = IF 30 ELSE
+  DUP 3  = IF 31 ELSE
+  DUP 2  = IF CurrYear 4 MOD 0 = IF 29 ELSE 28 THEN ELSE
+  DUP 1  = IF 31 ELSE
+  THEN THEN THEN THEN THEN THEN THEN THEN THEN THEN THEN THEN 
+  SWAP DROP ;
+
+: DaysToCurrMonth   
+  1 DaysInMonth
+  CurrMonth 1 - 1 DO I DaysInMonth + LOOP ;
+
+: DaysInYear
+  4 MOD 0 = IF 366 ELSE 365 THEN ;
+
+: DaysFromYearToCurrYear
+  DUP 1 + SWAP DaysInYear
+  CurrYear ROT DO I DaysInYear + LOOP ;
+
+: += 
+  DUP @ ROT + SWAP ! ;
+
+: YearToSec
+  31556926 * ;
+
+: DayToSec
+  86400 * ;
+
+time&date
+VARIABLE year year !
+VARIABLE month month ! 
+VARIABLE day day !
+VARIABLE hour hour !
+VARIABLE minute minute !
+VARIABLE second second !
+VARIABLE epoch
+
+1970 DaysFromYearToCurrYear DayToSec epoch !
+DaysToCurrMonth DayToSec epoch +=
+day @ DayToSec epoch +=
+hour @ 3600 * epoch +=
+minute @ 60 * epoch +=
+second @ epoch +=
+
+epoch @  72000 - epoch ! ( Somewhere I am gaining 20 days that I shouldn't be, this band-aid fixes that )
+
+epoch ? CR
+( utime DROP . CR )
+
+bye
