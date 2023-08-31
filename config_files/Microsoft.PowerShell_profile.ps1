@@ -44,11 +44,11 @@ function gitStatus {
       $changed = $changed.Split([Environment]::NewLine)
     }
 
-    if ([int]$behind -eq 0 -and $ahead -eq 0 ) {
+    if ([int]$behind -eq 0 -and [int]$ahead -eq 0 ) {
       $gitstatus = '[=]'
-    } elseif ([int]$behind -ne 0 -and $ahead -eq 0) {
+    } elseif ([int]$behind -ne 0 -and [int]$ahead -eq 0) {
       $gitstatus = "[b: $behind]"
-    } elseif ([int]$ahead -ne 0 -and $behind -eq 0) {
+    } elseif ([int]$ahead -ne 0 -and [int]$behind -eq 0) {
       $gitstatus = "[a: $ahead]"
     } else {
       $gitstatus = "[b: $behind | a: $ahead]"
@@ -80,6 +80,7 @@ function add { git add . }
 function c ($params) { git commit $params }
 function p { git push }
 function d { git d }
+function log { git log --full-history --stat --all }
 function psrc { nvim $PROFILE }
 function potato { echo "Potato" }
 function edit_profile { nvim $PROFILE }
