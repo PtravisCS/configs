@@ -7,21 +7,28 @@ sudo apt-get install apache2
 sudo apt-get install apache2-dev
 sudo apt-get install aptitude
 sudo apt-get install build-essential
+sudo apt-get install cargo
+sudo apt-get install catimg
 sudo apt-get install clisp
 sudo apt-get install composer
+sudo apt-get install cpanminus
 sudo apt-get install curl
 sudo apt-get install docker
 sudo apt-get install evolution
 sudo apt-get install evolution-ews
+sudo apt-get install fd-find
+sudo apt-get install feh
 sudo apt-get install ffmpeg
 sudo apt-get install flake8
 sudo apt-get install gdal-bin
+sudo apt-get install gforth
 sudo apt-get install gimp
 sudo apt-get install git
 sudo apt-get install gnome-tweaks
 sudo apt-get install highlight
 sudo apt-get install imagemagick
 sudo apt-get install imagemagick-6.q16
+sudo apt-get install libperl-critic-perl 
 sudo apt-get install keepassx
 
 # Required for Android Studio
@@ -35,7 +42,6 @@ sudo apt-get install npm
 sudo apt-get install openjdk-8-jre
 sudo apt-get install openssh-server
 sudo apt-get install perl-doc
-sudo apt-get install cpanminus
 sudo apt-get install php
 sudo apt-get install php8.1-curl
 sudo apt-get install php8.1-fpm
@@ -48,6 +54,7 @@ sudo apt-get install php8.1-soap
 sudo apt-get install php8.1-sqlite3
 sudo apt-get install php8.1-xml
 sudo apt-get install php8.1-zip
+sudo apt-get install php-bcmath
 sudo apt-get install php-codesniffer
 sudo apt-get install php-redis
 sudo apt-get install php-ssh2
@@ -63,8 +70,10 @@ sudo apt-get install qtcreator
 sudo apt-get install r-base
 sudo apt-get install redis-server
 sudo apt-get install rename
+sudo apt-get install ripgrep
 sudo apt-get install screen
 sudo apt-get install shellcheck
+sudo apt-get install sleuthkit
 sudo apt-get install smbclient
 sudo apt-get install solaar
 sudo apt-get install spell
@@ -74,8 +83,6 @@ sudo apt-get install vim
 sudo apt-get install vlc
 sudo apt-get install wajig
 sudo apt-get install wl-clipboard
-sudo apt-get install ripgrep
-sudo apt-get install cargo
 
 # Install Neovim
 cd ~/ || return
