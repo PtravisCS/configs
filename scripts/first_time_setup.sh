@@ -29,6 +29,7 @@ sudo apt-get install highlight
 sudo apt-get install imagemagick
 sudo apt-get install imagemagick-6.q16
 sudo apt-get install libperl-critic-perl 
+sudo apt-get install lua5.4
 sudo apt-get install keepassx
 
 # Required for Android Studio
@@ -87,7 +88,7 @@ sudo apt-get install wl-clipboard
 # Install Neovim
 cd ~/ || return
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-tar -xvzf nvim-linux64.tar.gz -C nvim-linux64
+tar -xvzf nvim-linux64.tar.gz
 cd nvim-linux64 || (printf 'Unable to CD into nvim-linux64' && exit)
 rsync -a ./bin/ /usr/bin/
 rsync -a ./lib/ /usr/lib/
