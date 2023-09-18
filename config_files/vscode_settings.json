@@ -22,5 +22,11 @@
         }
     ],
     "files.trimTrailingWhitespace": true,
-    "phpcs.standard": ""
+    "phpcs.standard": "",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "workbench.iconTheme": "material-icon-theme",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "editor.lineNumbers": "relative"
 }

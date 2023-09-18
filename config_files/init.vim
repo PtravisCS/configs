@@ -16,12 +16,12 @@ Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'echasnovski/mini.jump2d'
 Plug 'https://github.com/moll/vim-bbye'
 Plug 'dense-analysis/ale' " Linter
-Plug 'tomiis4/Hypersonic.nvim' " RegEx tester
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
 Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
-Plug 'wfxr/minimap.vim'
+" Plug 'wfxr/minimap.vim'
+Plug 'echasnovski/mini.map', { 'branch': 'stable' }
 
 call plug#end()
 
@@ -29,6 +29,7 @@ call plug#end()
 lua require('tabline').setup()
 lua require('lualine').setup()
 lua require('mini.jump2d').setup()
+lua require('mini.map').setup()
 lua require('which-key').setup()
 lua vim.notify = require("notify")
 
@@ -126,6 +127,7 @@ set showcmd " Show active command in lower right corner
 set mouse=n " Enable Mouse Mode
 set relativenumber " Show relative line numbers in files
 set title
+setlocal spell spelllang=en_us
 
 " Linting
 call ale#linter#Define('php', {
@@ -175,6 +177,4 @@ lua << EOF
 EOF
 
 " Minimap configuration
-let g:minimap_width = 10
-let g:minimap_auto_start = 1
-let g:minimap_auto_start_win_enter = 1
+" lua MiniMap.open()

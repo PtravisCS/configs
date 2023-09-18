@@ -343,3 +343,5 @@ export GIT_EDITOR=nvim
 export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$PATH"
 #export MANPAGER="$HOME/.local/bin/nvr -s +Man!"
 export MANPAGER="nvim -c 'Man!' -"
+export XDG_CONFIG_HOME="$HOME/.config"
+export DOTNET_CLI_HOME="$XDG_CONFIG_HOME"
