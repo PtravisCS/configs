@@ -22,6 +22,7 @@ Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
 " Plug 'wfxr/minimap.vim'
 Plug 'echasnovski/mini.map', { 'branch': 'stable' }
+Plug 'sontungexpt/stcursorword'
 
 call plug#end()
 
@@ -31,6 +32,7 @@ lua require('lualine').setup()
 lua require('mini.jump2d').setup()
 lua require('mini.map').setup()
 lua require('which-key').setup()
+lua require('stcursorword').setup({highlight = {underline = false, bg = 35}})
 lua vim.notify = require("notify")
 
 set encoding=UTF-8
