@@ -58,6 +58,11 @@
 		"command": "leap.find",
 		"when": "neovim.mode == normal"
 	},
+  {
+    "key": "enter",
+    "command": "leap.find",
+    "when": "neovim.mode == visual"
+  },
 	{
 		"key": "ctrl+enter",
 		"command": "-leap.find",

@@ -8,6 +8,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq', 'do': ':COQdeps'} " Intelisense autocomplete popup
+Plug 'ray-x/lsp_signature.nvim' " Function/method signature/documentation popup
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
@@ -17,7 +18,7 @@ Plug 'echasnovski/mini.jump2d'
 Plug 'https://github.com/moll/vim-bbye'
 Plug 'dense-analysis/ale' " Linter
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
 " Plug 'wfxr/minimap.vim'
@@ -35,9 +36,23 @@ lua require('which-key').setup()
 lua require('stcursorword').setup({highlight = {underline = false, bg = 35}})
 lua vim.notify = require("notify")
 
+" Enable lspconfig method/function signature/docs popup
+lua <<EOF
+	require "lsp_signature".setup({
+		bind = true,
+		max_height = 12,
+		wrap = true,
+		floating_window = true,
+		close_timeout = 500,
+		handler_opts = {
+			border = "rounded"
+		}
+	})
+EOF
+
 set encoding=UTF-8
 
-"required for gruvbox
+"Colorscheme (gruvbox)
 lua vim.opt.termguicolors = true --required for nvim notify
 colorscheme gruvbox
 set background=dark
