@@ -14,6 +14,7 @@ sudo apt-get install composer
 sudo apt-get install cpanminus
 sudo apt-get install curl
 sudo apt-get install docker
+sudo apt-get install dos2unix
 sudo apt-get install evolution
 sudo apt-get install evolution-ews
 sudo apt-get install fd-find
@@ -30,6 +31,7 @@ sudo apt-get install imagemagick
 sudo apt-get install imagemagick-6.q16
 sudo apt-get install libperl-critic-perl 
 sudo apt-get install lua5.4
+sudo apt-get install inkscape
 sudo apt-get install keepassx
 
 # Required for Android Studio
@@ -110,6 +112,7 @@ sudo chmod 644 ~/.local/share/fonts/UbuntuMonoNerdFontMono-Regular.ttf
 
 # Install nvr
 pip3 install neovim-remote
+pip3 install sqlfluff
 
 # Install nvm
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
