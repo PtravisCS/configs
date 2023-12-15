@@ -2,6 +2,8 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'neovim/nvim-lspconfig' " Language server config files
+Plug 'williamboman/mason.nvim' " Language server package manager
 Plug 'kdheepak/tabline.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -35,10 +37,11 @@ lua require('mini.map').setup()
 lua require('which-key').setup()
 lua require('stcursorword').setup({highlight = {underline = false, bg = 35}})
 lua vim.notify = require("notify")
+lua require("mason").setup()
 
 " Enable lspconfig method/function signature/docs popup
 lua <<EOF
-	require "lsp_signature".setup({
+	require('lsp_signature').setup({
 		bind = true,
 		max_height = 12,
 		wrap = true,
@@ -49,6 +52,11 @@ lua <<EOF
 		}
 	})
 EOF
+
+" Enable Language Servers
+lua require('lspconfig').bashls.setup{}
+lua require('lspconfig').intelephense.setup{}
+lua require('lspconfig').lua_ls.setup{}
 
 set encoding=UTF-8
 
