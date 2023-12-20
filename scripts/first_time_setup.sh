@@ -29,6 +29,7 @@ progs=('apache2'
   'highlight'
   'imagemagick'
   'imagemagick-6.q16'
+  'libpar-packer-perl'
   'libperl-critic-perl'
   'lua5.4'
   'inkscape'
@@ -93,47 +94,87 @@ done
 printf 'Installing android studio and dependancies\n'
 sudo apt-get -qq install android-sdk lib32z1 libapr1 libapr1-dev libaprutil1-dev libbz2-1.0:i386 libc6:i386 libncurses5:i386 libstdc++6:i386
 
-printf "Do you wish to install NeoVim? "
-read -r yon
+printf 'Do you wish to install NeoVim?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      # Install Neovim
+      cd ~/ || return
+      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+      tar -xvzf nvim-linux64.tar.gz
+      cd nvim-linux64 || (printf 'Unable to CD into nvim-linux64' && exit)
+      sudo rsync -a ./bin/ /usr/bin/
+      sudo rsync -a ./lib/ /usr/lib/
+      sudo rsync -a ./share/ /usr/share/
+      sudo rsync -a ./man/ /usr/local/man
 
-if [[ "$yon" == 'y' ]]; then
-  # Install Neovim
-  cd ~/ || return
-  wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-  tar -xvzf nvim-linux64.tar.gz
-  cd nvim-linux64 || (printf 'Unable to CD into nvim-linux64' && exit)
-  sudo rsync -a ./bin/ /usr/bin/
-  sudo rsync -a ./lib/ /usr/lib/
-  sudo rsync -a ./share/ /usr/share/
-  sudo rsync -a ./man/ /usr/local/man
-fi
+      cd ~/ || return
+      rm -rf ./nvim-linux64.tar.gz
+      rm -rf ./nvim-linux64
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+printf 'Do you want to install Ubuntu Mono NerdFont?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      # Install NerdFont
+      cd ~/ || return
+      wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFontMono-Regular.ttf
+
+      if [ ! -d "$HOME/.local/share/fonts/" ]; then
+        mkdir -p "$HOME/.local/share/fonts/"
+      fi
+
+      sudo mv ./UbuntuMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
+      sudo chmod 644 ~/.local/share/fonts/UbuntuMonoNerdFontMono-Regular.ttf
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+printf 'Do you want to install neovim remote?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      # Install nvr
+      pip3 install neovim-remote
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+printf 'Do you want to install sqlfluff?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      pip3 install sqlfluff
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+printf 'Do you want to install Node Version Manager?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      # Install nvm
+      wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+      # shellcheck source=/home/travisp/.bashrc
+      source ~/.bashrc
+      nvm install node
+      nvm use node
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
 
 sudo apt-get autoremove
 sudo apt-get install --fix-missing
-
-cd ~/ || return
-rm -rf ./nvim-linux64.tar.gz
-rm -rf ./nvim-linux64
-
-# Install NerdFont
-cd ~/ || return
-wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFontMono-Regular.ttf
-sudo mv ./UbuntuMonoNerdFontMono-Regular.ttf ~/.local/share/fonts/
-sudo chmod 644 ~/.local/share/fonts/UbuntuMonoNerdFontMono-Regular.ttf
-
-# Install nvr
-pip3 install neovim-remote
-pip3 install sqlfluff
-
-# Install nvm
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-# shellcheck source=/home/travisp/.bashrc
-source ~/.bashrc
-nvm install node
-nvm use node
-
-# Install Perl dependencies
-sudo cpan install 'LWP::Simple'
-sudo cpan install 'Mojo::DOM'
-sudo cpan install 'Term::ANSIColor'
-sudo cpan install 'IO::Interactive'
