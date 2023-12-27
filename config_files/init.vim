@@ -23,45 +23,55 @@ Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
-" Plug 'wfxr/minimap.vim'
-Plug 'echasnovski/mini.map', { 'branch': 'stable' }
+Plug 'echasnovski/mini.map'
 Plug 'sontungexpt/stcursorword'
+Plug 'ellisonleao/glow.nvim'
 
 call plug#end()
 
-" Enable Plugins that require it
-lua require('tabline').setup()
-lua require('lualine').setup()
-lua require('mini.jump2d').setup()
-lua require('mini.map').setup()
-lua require('which-key').setup()
-lua require('stcursorword').setup({highlight = {underline = false, bg = 35}})
-lua vim.notify = require("notify")
-lua require("mason").setup()
-
-" Enable lspconfig method/function signature/docs popup
 lua <<EOF
-	require('lsp_signature').setup({
-		bind = true,
-		max_height = 12,
-		wrap = true,
-		floating_window = true,
-		close_timeout = 500,
-		handler_opts = {
-			border = "rounded"
-		}
-	})
+
+-- Enable Plugins that require it
+require('tabline').setup()
+require('lualine').setup()
+require('mini.jump2d').setup()
+require('mini.map').setup()
+require('which-key').setup()
+require('stcursorword').setup({highlight = {underline = false, bg = 35}})
+vim.notify = require("notify")
+require('mason').setup()
+require('glow').setup()
+
+-- Enable lspconfig method/function signature/docs popup
+require'lsp_signature'.setup({
+  bind = true,
+  max_height = 12,
+  wrap = true,
+  floating_window = true,
+  close_timeout = 500,
+  handler_opts = {
+    border = "rounded"
+  }
+})
+
+-- Enable Language Servers
+require('lspconfig').bashls.setup{}
+require('lspconfig').intelephense.setup{}
+require('lspconfig').lua_ls.setup{}
+require('lspconfig').vimls.setup{}
+
+-- Minimap configuration
+if vim.api.nvim_win_get_option(0, "diff") then
+ MiniMap.open()
+end
+
 EOF
 
-" Enable Language Servers
-lua require('lspconfig').bashls.setup{}
-lua require('lspconfig').intelephense.setup{}
-lua require('lspconfig').lua_ls.setup{}
+if $TERM_PROGRAM != "Apple_Terminal"
+  lua vim.opt.termguicolors = true --required for nvim notify
+endif
 
 set encoding=UTF-8
-
-"Colorscheme (gruvbox)
-lua vim.opt.termguicolors = true --required for nvim notify
 colorscheme gruvbox
 set background=dark
 
@@ -82,8 +92,7 @@ require'nvim-treesitter.configs'.setup {
 
   incremental_selection = {
     enable = true,
-    keymaps = {
-      init_selection = "gnn",
+    keymaps = { init_selection = "gnn",
       node_incremental = "grn",
       scope_incremental = "grc",
       node_decremental = "grm",
@@ -92,6 +101,38 @@ require'nvim-treesitter.configs'.setup {
 
   indent = {
     enable = true
+  }
+}
+
+-- Telescope Configuration
+require("telescope").setup {
+  defaults = {
+    preview = { -- Display images using terminal image viewer
+      mime_hook = function(filepath, bufnr, opts)
+        local is_image = function(filepath)
+          local image_extensions = {'png','jpg'}   -- Supported image formats
+          local split_path = vim.split(filepath:lower(), '.', {plain=true})
+          local extension = split_path[#split_path]
+          return vim.tbl_contains(image_extensions, extension)
+        end
+        if is_image(filepath) then
+          local term = vim.api.nvim_open_term(bufnr, {})
+          local function send_output(_, data, _ )
+            for _, d in ipairs(data) do
+              vim.api.nvim_chan_send(term, d..'\r\n')
+            end
+          end
+          vim.fn.jobstart(
+            {
+                'catimg', '-t', filepath  -- Terminal image viewer command
+            }, 
+            {on_stdout=send_output, stdout_buffered=true, pty=true}
+          )
+        else
+          require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+        end
+      end
+    },
   }
 }
 EOF
@@ -166,40 +207,3 @@ call ale#linter#Define('php', {
 let g:ale_fixers = {
 \ 'sql': ['sqlfluff']
 \}
-
-" Telescope configuration
-lua << EOF
-  -- Display images using terminal image viewer
-  require("telescope").setup {
-    defaults = {
-      preview = {
-        mime_hook = function(filepath, bufnr, opts)
-          local is_image = function(filepath)
-            local image_extensions = {'png','jpg'}   -- Supported image formats
-            local split_path = vim.split(filepath:lower(), '.', {plain=true})
-            local extension = split_path[#split_path]
-            return vim.tbl_contains(image_extensions, extension)
-          end
-          if is_image(filepath) then
-            local term = vim.api.nvim_open_term(bufnr, {})
-            local function send_output(_, data, _ )
-              for _, d in ipairs(data) do
-                vim.api.nvim_chan_send(term, d..'\r\n')
-              end
-            end
-            vim.fn.jobstart(
-              {
-                  'catimg', '-t', filepath  -- Terminal image viewer command
-              }, 
-              {on_stdout=send_output, stdout_buffered=true, pty=true})
-          else
-            require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
-          end
-        end
-      },
-    }
-  }
-EOF
-
-" Minimap configuration
-" lua MiniMap.open()
