@@ -42,47 +42,15 @@ vim.notify = require("notify")
 require('mason').setup()
 require('glow').setup()
 
--- Enable lspconfig method/function signature/docs popup
-require'lsp_signature'.setup({
-  bind = true,
-  max_height = 12,
-  wrap = true,
-  floating_window = true,
-  close_timeout = 500,
-  handler_opts = {
-    border = "rounded"
-  }
-})
-
--- Enable Language Servers
-require('lspconfig').bashls.setup{}
-require('lspconfig').intelephense.setup{}
-require('lspconfig').lua_ls.setup{}
-require('lspconfig').vimls.setup{}
-
 -- Minimap configuration
-if vim.api.nvim_win_get_option(0, "diff") then
+if not vim.api.nvim_win_get_option(0, "diff") then
  MiniMap.open()
 end
 
-EOF
-
-if $TERM_PROGRAM != "Apple_Terminal"
-  lua vim.opt.termguicolors = true --required for nvim notify
-endif
-
-set encoding=UTF-8
-colorscheme gruvbox
-set background=dark
-
-lua <<EOF
+-- Treesitter Configuration
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -135,7 +103,34 @@ require("telescope").setup {
     },
   }
 }
+
+-- Enable lspconfig method/function signature/docs popup
+require'lsp_signature'.setup({
+  bind = true,
+  max_height = 12,
+  wrap = true,
+  floating_window = true,
+  close_timeout = 500,
+  handler_opts = {
+    border = "rounded"
+  }
+})
+
+-- Enable Language Servers
+require('lspconfig').bashls.setup{}
+require('lspconfig').intelephense.setup{}
+require('lspconfig').lua_ls.setup{}
+require('lspconfig').vimls.setup{}
+
 EOF
+
+if $TERM_PROGRAM != "Apple_Terminal"
+  lua vim.opt.termguicolors = true --required for nvim notify
+endif
+
+set encoding=UTF-8
+colorscheme gruvbox
+set background=dark
 
 " Auto start autocomplete plugin
 let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long' }
