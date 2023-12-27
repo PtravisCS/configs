@@ -1,8 +1,5 @@
 #!/bin/bash 
 
-sudo apt-get update
-sudo apt-get upgrade
-
 progs=('apache2' 
   'apache2-dev' 
   'aptitude' 
@@ -83,7 +80,50 @@ progs=('apache2'
 	'vlc'
 	'wajig'
 	'wl-clipboard'
+  'glow'
 )
+
+printf 'Do you want to add the glow markdown reader repo to the sources list?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+printf 'Do you want to add the PowerShell repo to the sources list?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      source /etc/os-release # Get the version of Ubuntu
+      wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb # Download the Microsoft repository keys
+      sudo dpkg -i packages-microsoft-prod.deb # Register the Microsoft repository keys
+      rm packages-microsoft-prod.deb # Delete the Microsoft repository keys file
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+# printf 'Do you want to add the Edge repo to the sources list?'
+# select yon in 'y' 'n'; do
+#   case $yon in
+#     'y'|'Y')
+#       wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+#       sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+#       break
+#       ;;
+#     'n'|'N') break ;;
+#   esac
+# done
+
+sudo apt-get update
+sudo apt-get upgrade
 
 for t in "${progs[@]}"; do
   printf 'Installing %s\n' "$t"
