@@ -35,16 +35,21 @@ lua <<EOF
 require('tabline').setup()
 require('lualine').setup()
 require('mini.jump2d').setup()
-require('mini.map').setup()
 require('which-key').setup()
-require('stcursorword').setup({highlight = {underline = false, bg = 35}})
+require('stcursorword').setup({ highlight = { underline = false, bg = 35 } })
 vim.notify = require("notify")
 require('mason').setup()
 require('glow').setup()
 
 -- Minimap configuration
 if not vim.api.nvim_win_get_option(0, "diff") then
- MiniMap.open()
+  require('mini.map').setup({ 
+    symbols = { 
+      encode = require('mini.map').gen_encode_symbols.dot('4x2') -- Use dots for minmap symbols. The block symbols aren't all available in MacOS (even with NerdFont).
+    } 
+  })
+
+  MiniMap.open()
 end
 
 -- Treesitter Configuration
