@@ -8,24 +8,25 @@ Plug 'kdheepak/tabline.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'} " Filetree plugin
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq', 'do': ':COQdeps'} " Intelisense autocomplete popup
 Plug 'ray-x/lsp_signature.nvim' " Function/method signature/documentation popup
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
+Plug 'https://gitlab.com/yorickpeterse/nvim-window.git' " Plugin for quickly jumping between splits (-w)
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'https://github.com/tpope/vim-surround.git'
-Plug 'echasnovski/mini.jump2d'
-Plug 'https://github.com/moll/vim-bbye'
+Plug 'echasnovski/mini.jump2d' " Text jump program (<enter>)
+Plug 'https://github.com/moll/vim-bbye' " Allows destroying buffers without closing splits
 Plug 'dense-analysis/ale' " Linter
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
-Plug 'rcarriga/nvim-notify'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' } " Search plugin (-ff, -fg, -fn)
+Plug 'rcarriga/nvim-notify' " Notification box plugin
 Plug 'folke/which-key.nvim'
-Plug 'echasnovski/mini.map'
-Plug 'sontungexpt/stcursorword'
-Plug 'ellisonleao/glow.nvim'
+Plug 'echasnovski/mini.map' " Code minimap plugin
+Plug 'sontungexpt/stcursorword' " Highlights other instances of work under cursor in project
+Plug 'ellisonleao/glow.nvim' " Markdown display in terminal
+Plug 'lukas-reineke/indent-blankline.nvim' " Indentation guides plugin
 
 call plug#end()
 
@@ -40,6 +41,7 @@ require('stcursorword').setup({ highlight = { underline = false, bg = 35 } })
 vim.notify = require("notify")
 require('mason').setup()
 require('glow').setup()
+require("ibl").setup()
 
 -- Minimap configuration
 if not vim.api.nvim_win_get_option(0, "diff") then
@@ -65,7 +67,8 @@ require'nvim-treesitter.configs'.setup {
 
   incremental_selection = {
     enable = true,
-    keymaps = { init_selection = "gnn",
+    keymaps = { 
+      init_selection = "gnn",
       node_incremental = "grn",
       scope_incremental = "grc",
       node_decremental = "grm",
