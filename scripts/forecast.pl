@@ -44,6 +44,7 @@ for my $elem ($elements->each) {
 
 $forecast =~ s/\n\n/\n/g;
 $forecast =~ s/Today/\nToday/g;
+$forecast =~ s/This Afternoon:/\nThis Afternoon:/g;
 $forecast =~ s/\&nbsp;/ /g;
 $forecast =~ s#[^a-zA-Z 0-9:/,\.%\(\)\n<> ]#°#g;
 if (is_interactive()) {
