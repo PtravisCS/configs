@@ -56,16 +56,26 @@
 	{
 		"key": "enter",
 		"command": "leap.find",
-		"when": "neovim.mode == normal"
+		"when": "neovim.mode == normal && editorTextFocus"
 	},
   {
     "key": "enter",
     "command": "leap.find",
-    "when": "neovim.mode == visual"
+    "when": "neovim.mode == visual && editorTextFocus"
   },
 	{
 		"key": "ctrl+enter",
 		"command": "-leap.find",
-		"when": "neovim.mode == normal"
+		"when": "neovim.mode == normal && editorTextFocus"
+	},
+	{
+		"key": "- s",
+		"command": "surround.with",
+		"when": "editorHasSelection && editorTextFocus && focusedView == 'workbench.panel.output' && neovim.mode = 'normal'"
+	},
+	{
+		"key": "ctrl+shift+t",
+		"command": "surround.with",
+		"when": "editorHasSelection"
 	}
 ]

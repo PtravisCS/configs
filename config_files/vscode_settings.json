@@ -28,5 +28,49 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "editor.lineNumbers": "relative"
+    "editor.lineNumbers": "relative",
+    "window.density.editorTabHeight": "compact",
+    "workbench.editor.tabActionCloseVisibility": false,
+    "surround.with.doubleQuotes": {
+        "label": "Double Quotes",
+        "description": "\"...\"",
+        "disabled": false,
+        "snippet": "\"$TM_SELECTED_TEXT\""
+    },
+    "surround.with.singleQuotes": {
+        "label": "Single Quotes",
+        "description": "'...'",
+        "disabled": false,
+        "snippet": "'$TM_SELECTED_TEXT'"
+    },
+    "surround.with.backTicks": {
+        "label": "Back Ticks",
+        "description": "`...`",
+        "disabled": false,
+        "snippet": "`$TM_SELECTED_TEXT`"
+    },
+    "surround.with.parenthensis": {
+        "label": "Parenthesis ()",
+        "description": "(...)",
+        "disabled": false,
+        "snippet": "($TM_SELECTED_TEXT)"
+    },
+    "surround.with.squareBraces": {
+        "label": "Square Braces []",
+        "description": "[...]",
+        "disabled": false,
+        "snippet": "[$TM_SELECTED_TEXT]"
+    },
+    "surround.with.curlyBraces": {
+        "label": "Curly Braces {}",
+        "description": "{...}",
+        "disabled": false,
+        "snippet": "{$TM_SELECTED_TEXT}"
+    },
+    "surround.with.percent": {
+        "label": "Percent %",
+        "description": "%...%",
+        "disabled": false,
+        "snippet": "%$TM_SELECTED_TEXT%"
+    }
 }
