@@ -10,3 +10,4 @@ code --install-extension zobo.php-intellisense
 code --install-extension shevaua.phpcs
 code --install-extension dorzey.vscode-sqlfluff
 code --install-extension asvetliakov.vscode-neovim
+code --install-extension yatki.vscode-surround
