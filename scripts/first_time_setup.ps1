@@ -6,7 +6,7 @@ refreshenv
 choco install python3 -y
 choco install python2 -y
 choco install typescript -y
-choco install jdk12 -y 
+choco install jdk17 -y 
 choco install jdk8 -y
 
 # IDEs
@@ -16,7 +16,6 @@ choco install neovim -y
 # Programming/Command-line Utilities
 choco install microsoft-windows-terminal -y
 choco install gsudo -y
-choco install awscli -y
 choco install docker-cli -y
 choco install git -y
 choco install hg -y
@@ -26,6 +25,7 @@ choco install msys2 -y
 # Non-Choco Pacmans
 choco install nvm -y
 choco install maven -y
+choco install cargo -y
 
 # User Applications
 choco install audacity -y
