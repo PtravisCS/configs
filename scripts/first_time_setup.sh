@@ -131,7 +131,7 @@ for t in "${progs[@]}"; do
 done
 
 # Required for Android Studio
-printf 'Installing android studio and dependancies\n'
+printf 'Installing android studio dependancies\n'
 sudo apt-get -qq install android-sdk lib32z1 libapr1 libapr1-dev libaprutil1-dev libbz2-1.0:i386 libc6:i386 libncurses5:i386 libstdc++6:i386
 
 printf 'Do you wish to install NeoVim?'
@@ -218,3 +218,46 @@ done
 
 sudo apt-get autoremove
 sudo apt-get install --fix-missing
+
+# Snaps
+printf 'Do you want to install Snaps?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      snap install android-studio
+      snap install chromium
+      snap install code
+      snap install firefox
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+# Flatpaks
+printf 'Do you want to install Flatpaks?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      flatpak install flathub com.google.AndroidStudio
+      flatpak install flathub org.chromium.Chromium
+      flatpak install flathub com.visualstudio.code
+      flatpak install flathub org.mozilla.firefox
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+
+# VSCode Plugins
+printf 'Do you want to install VSCode Plugins?'
+select yon in 'y' 'n'; do
+  case $yon in
+    'y'|'Y')
+      pwsh ./vscode_plugins.ps1
+      break
+      ;;
+    'n'|'N') break ;;
+  esac
+done
+

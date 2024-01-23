@@ -1,42 +1,47 @@
 #Chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 refreshenv
 
-# Programming-Languages/Runtimes
-choco install python3 -y
-choco install python2 -y
-choco install typescript -y
+choco install audacity -y
+choco install catimg -y
+choco install clisp -y
+choco install composer -y
+choco install cpan -y
+choco install cpanminus -y
+choco install docker-cli -y
+# choco install fd-find -y
+# choco install ffmpeg -y
+# choco install flake8 -y
+choco install gforth -y
+# choco install gimp -y
+choco install git -y
+choco install greenshot -y
+choco install gsudo -y
+choco install hg -y
+# choco install imagemagick
+# choco install inkscape
 choco install jdk17 -y 
 choco install jdk8 -y
-
-# IDEs
-choco install vscode -y
-choco install neovim -y
-
-# Programming/Command-line Utilities
-choco install microsoft-windows-terminal -y
-choco install gsudo -y
-choco install docker-cli -y
-choco install git -y
-choco install hg -y
-choco install powershell-core -y
-choco install msys2 -y
-
-# Non-Choco Pacmans
-choco install nvm -y
-choco install maven -y
-choco install cargo -y
-
-# User Applications
-choco install audacity -y
-choco install greenshot -y
-choco install postman -y
-choco install powertoys -y
-choco install screentogif -y
-choco install wireshark -y
-choco install amazon-workspaces -y
 choco install keypass -y
-choco install powerbi -y
+# choco install libpar-packer-perl
+# choco install libperl-critic-perl
+choco install maven -y
+choco install microsoft-windows-terminal -y
+choco install msys2 -y
+choco install neovim -y
+choco install nvm -y
+# choco install php
+choco install postman -y
+choco install powershell-core -y
+choco install powertoys -y
+choco install python2 -y
+choco install python3 -y
+choco install rustup -y
+# choco install ripgrep -y
+choco install screentogif -y
+choco install typescript -y
+choco install vscode -y
+choco install wireshark -y
 
 # Post Choco Installations
 refreshenv
