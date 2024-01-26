@@ -1,27 +1,50 @@
 {
   "profiles": {
-    "work": {
-      "./config_files/.bashrc": "~/",
+    "work-linux": {
       "./config_files/.bash_aliases": "~/",
+      "./config_files/.bashrc": "~/",
+      "./config_files/.gitconfig": "~/",
       "./config_files/.screenrc": "~/",
-      "./config_files/.vimrc": "~/",
       "./config_files/.tmux.conf": "~/",
+      "./config_files/.vimrc": "~/",
       "./config_files/Microsoft.PowerShell_profile.ps1": "~/.config/powershell/",
       "./config_files/init.vim": "~/.config/nvim/",
-      "./config_files/.gitconfig": "~/"
+      "./config_files/vscode_keybindings.json": "~/.config/Code/User/keybindings.json",
+      "./config_files/vscode_settings.json": "~/.config/Code/User/settings.json",
+      "./config_files/screenrc": "~/",
+      "./config_files/tox.ini": "~/",
+      "./scripts/forecast": "~/.local/bin/",
+      "./scripts/epoch": "~/.local/bin/"
     },
     "home": {
 
     },
     "server": {
-      "./config_files/.bashrc": "~/",
       "./config_files/.bash_aliases": "~/",
+      "./config_files/.bashrc": "~/",
+      "./config_files/.gitconfig": "~/",
       "./config_files/.screenrc": "~/",
-      "./config_files/.vimrc": "~/",
       "./config_files/.tmux.conf": "~/",
+      "./config_files/.vimrc": "~/",
       "./config_files/Microsoft.PowerShell_profile.ps1": "~/.config/powershell/",
-      "./config_files/.init.vim": "~/.config/nvim/",
-      "./config_files/.gitconfig": "~/"
+      "./config_files/init.vim": "~/.config/nvim/",
+      "./config_files/screenrc": "~/",
+      "./config_files/tox.ini": "~/",
+      "./scripts/forecast": "~/.local/bin/",
+      "./scripts/epoch": "~/.local/bin/"
+    },
+    "mac": {
+      "./config_files/.bash_aliases": "~/",
+      "./config_files/.bashrc": "~/",
+      "./config_files/.gitconfig": "~/",
+      "./config_files/.screenrc": "~/",
+      "./config_files/.tmux.conf": "~/",
+      "./config_files/.vimrc": "~/",
+      "./config_files/Microsoft.PowerShell_profile.ps1": "~/.config/powershell/",
+      "./config_files/init.vim": "~/.config/nvim/",
+      "./config_files/screenrc": "~/",
+      "./config_files/tox.ini": "~/",
+      "./scripts/epoch": "~/.local/bin/"
     }
   }
 }
