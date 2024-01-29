@@ -6,7 +6,7 @@ function cdls {
     [string]$path = $( Read-Host "> ")
   )
   
-  cd $path
+  Set-Location $path
   wsl ls
 
 }
@@ -18,7 +18,7 @@ function mkcd {
   )
 
   mkdir $path
-  cd $path
+  Set-Location $path
 
 }
 
@@ -82,7 +82,7 @@ function p { git push }
 function d { git d }
 function log { git log --full-history --stat --all }
 function psrc { nvim $PROFILE }
-function potato { echo "Potato" }
+function potato { Write-Output "Potato" }
 function edit_profile { nvim $PROFILE }
 
 # Aliases
