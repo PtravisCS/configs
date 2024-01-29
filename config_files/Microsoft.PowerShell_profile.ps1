@@ -87,7 +87,10 @@ function edit_profile { nvim $PROFILE }
 
 # Aliases
 New-Alias -Name "vi" nvim
-New-Alias -Name "ls" dir
+
+if (-not (Test-Path alias:ls)) {
+	New-Alias -Name "ls" dir
+}
 
 # Configurations and Modules
 Set-PSReadLineOption -EditMode Vi

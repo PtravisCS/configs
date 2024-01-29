@@ -141,7 +141,10 @@ colorscheme gruvbox
 set background=dark
 
 " Auto start autocomplete plugin
-let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long' }
+" Not compatible with Windows sadly
+if has('unix')
+  let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long' }
+endif
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -171,6 +174,7 @@ if has('unix')
   nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
 endif
 
+" If mapping to someplace other than ~/ make sure to set a HOME environment variable
 if has('win32') || has('win32unix')
   nnoremap <leader>ev <cmd>badd $HOME\AppData\Local\nvim\init.vim<cr><cmd>b init.vim<cr>
 endif
