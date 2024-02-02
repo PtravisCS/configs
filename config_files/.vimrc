@@ -7,6 +7,7 @@ set tabstop=2
 set autoindent
 set smartindent
 set title
+set relativenumber
 
 " Automatically open new splits to the right and bottom respectively
 " set splitright
@@ -29,9 +30,9 @@ nnoremap / /\v
 
 " Map -ev to open init.vim for linux and windows
 if has('unix')
-  nnoremap <leader>ev <cmd>badd ~/.config/nvim/init.vim<cr><cmd>b init.vim<cr>
+  nnoremap <leader>ev <cmd>badd ~/.vimrc<cr><cmd>b .vimrc<cr>
 endif
 
 if has('win32') || has('win32unix')
-  nnoremap <leader>ev <cmd>badd $HOME\AppData\Local\nvim\init.vim<cr><cmd>b init.vim<cr>
+  nnoremap <leader>ev <cmd>badd $HOME\.vimrc<cr><cmd>b .vimrc<cr>
 endif
