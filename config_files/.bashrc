@@ -233,6 +233,14 @@ gitStatus() {
 
 }
 
+show() {
+  if [[ -n "$1" ]]; then
+    git show "$1" -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map' 
+  else
+    git show 
+  fi
+}
+
 tree () {
   if ! command -v tree &> /dev/null; then
     fd . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
