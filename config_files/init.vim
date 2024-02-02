@@ -157,8 +157,8 @@ nnoremap <leader>gp :!git push<cr>
 nnoremap <leader>erc <cmd>badd ~/.bashrc<cr><cmd>b .bashrc<cr>
 nnoremap <leader>C <cmd>CHADopen<cr>
 nnoremap <Esc> <C-\><C-n>
-nnoremap <left> bp
-nnoremap <right> bn
+nnoremap <left> :bp<cr>
+nnoremap <right> :bn<cr>
 nnoremap / /\v
 xnoremap <leader>r :Hypersonic<cr>
 
