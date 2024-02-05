@@ -1,4 +1,3 @@
-
 # Functions
 function cdls {
 
@@ -77,10 +76,46 @@ function prompt {
 # Alias Functions
 function s { git status }
 function add { git add . }
-function c ($params) { git commit $params }
 function p { git push }
-function d { git d }
-function log { git log --full-history --stat --all }
+function c { 
+  Param (
+    [Parameter(Mandatory=$false, Position=0)]
+    [string] $params
+  )
+
+  if ($params) {
+    git commit $params 
+  }
+  else {
+    git commit
+  }
+}
+function d { 
+  Param (
+    [Parameter(Mandatory=$false, Position=0)]
+    [string] $params
+  )
+
+  if ($params) {
+    git d $params 
+  }
+  else {
+    git d
+  }
+}
+function log { 
+  Param (
+    [Parameter(Mandatory=$false, Position=0)]
+    [string] $params
+  )
+
+  if ($params) {
+    git log --full-history --stat --all $params
+  }
+  else {
+    git log --full-history --stat --all
+  }
+}
 function psrc { nvim $PROFILE }
 function potato { Write-Output "Potato" }
 function edit_profile { nvim $PROFILE }
