@@ -1,5 +1,6 @@
 alias cls='clear'
 alias clclear='clear'
+alias clclcear='clear'
 alias cclear='clear'
 alias del='rm'
 alias restart='sudo shutdown 0 -r'
