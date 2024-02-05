@@ -116,6 +116,19 @@ function log {
     git log --full-history --stat --all
   }
 }
+function show {
+  Param (
+    [Parameter(Mandatory=$false, Position=0)]
+    [string] $params
+  )
+
+  if ($params) {
+    git show $params -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map'
+  }
+  else {
+    git show
+  }
+}
 function psrc { nvim $PROFILE }
 function potato { Write-Output "Potato" }
 function edit_profile { nvim $PROFILE }

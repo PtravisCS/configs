@@ -245,7 +245,7 @@ tree () {
   if ! command -v tree &> /dev/null; then
     fd . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
   else
-    tree
+    tre
   fi
 }
 
