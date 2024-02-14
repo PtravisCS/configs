@@ -1,5 +1,6 @@
 alias cls='clear'
 alias clclear='clear'
+alias clcear='clear'
 alias clclcear='clear'
 alias cclear='clear'
 alias del='rm'
