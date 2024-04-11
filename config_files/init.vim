@@ -65,16 +65,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 
-  incremental_selection = {
-    enable = true,
-    keymaps = { 
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-
   indent = {
     enable = true
   }
@@ -125,7 +115,7 @@ require'lsp_signature'.setup({
 })
 
 -- Enable Language Servers
-require('lspconfig').bashls.setup{}
+--require('lspconfig').bashls.setup{}
 require('lspconfig').intelephense.setup{}
 require('lspconfig').lua_ls.setup{}
 require('lspconfig').vimls.setup{}
@@ -154,6 +144,7 @@ let mapleader = "-"
 nnoremap <leader>ga :!git add %<cr>
 nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
+nnoremap <leader>mm :lua require('mini.map').toggle()<cr>
 nnoremap <leader>erc <cmd>badd ~/.bashrc<cr><cmd>b .bashrc<cr>
 nnoremap <leader>C <cmd>CHADopen<cr>
 nnoremap <Esc> <C-\><C-n>
@@ -200,6 +191,7 @@ set showcmd " Show active command in lower right corner
 set mouse=n " Enable Mouse Mode
 set relativenumber " Show relative line numbers in files
 set title
+set diffopt+=iwhite " ignore whitespace at start/end of line in diff mode
 setlocal spell spelllang=en_us
 
 " Linting
