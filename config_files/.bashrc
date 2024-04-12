@@ -235,7 +235,9 @@ gitStatus() {
 
 show() {
   if [[ -n "$1" ]]; then
-    git show "$1" -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map' 
+    local commit="$1"
+    shift
+    git show "$commit" -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map' "$@"
   else
     git show 
   fi
@@ -270,8 +272,77 @@ note() {
   nvim "$topic"
   echo|tac >> "$topic"
 
-  cd -
+  cd - || return
 
+}
+
+numFiles() {
+  local globs=( )
+  local OPTIND
+  local opt
+  
+  while getopts "g:" opt; do
+    case "$opt" in
+      g)
+        globs+=("$OPTARG")
+        ;;
+      *)
+        printf "Invalid parameter. Usage: num_files [-g '<glob>'] -- <search_term>\n"
+        return
+        ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  local cmd
+
+  for arg in "${globs[@]}"
+  do
+    cmd="${cmd} -g ${arg}"
+  done
+
+  printf "%s files\n" "$(rg -c "$cmd" -- "$1" 2>/dev/null | wc -l)"
+}
+
+numLines() {
+  local globs=( )
+  local OPTIND
+  local opt
+  local cmd
+  local dir
+
+  if ! command -v rg &> /dev/null
+  then
+    printf "Requires RipGrep to be installed in order to function.\n"
+    exit 1
+  fi
+  
+  while getopts "g:" opt; do
+    case "$opt" in
+      g)
+        globs+=("$OPTARG")
+        ;;
+      *)
+        printf "Invalid parameter. Usage: num_files [-g '<glob>'] -- <search_term>\n"
+        return
+        ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  if [ -z "$1" ]
+  then
+    dir='.'
+  else
+    dir="$1"
+  fi
+
+  for arg in "${globs[@]}"
+  do
+    cmd="${cmd} -g ${arg}"
+  done
+
+  printf "%s lines\n" "$(rg -c "$cmd" -- "$dir" 2>/dev/null | cut -d':' -f2 | paste -sd+ | bc)"
 }
 
 black=$(tput setaf 0)
