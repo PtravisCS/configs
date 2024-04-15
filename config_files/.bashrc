@@ -183,7 +183,7 @@ statls() {
 
 	for f in $file_list
 	do
-    output+="$f \t $(stat "$f" | grep -Eo '\([0-9]{4}\/[dwrx-]{10}\)') \t $(stat -c %U:%G "$f  ") \t $(file "$f" | cut -d ':' -f 2)\n"
+    output+="$f \t $(stat "$f" | grep -Eo '\([0-9]{4}\/[dwrx-]{10}\)') \t $(stat -c %U:%G "$f") \t $(file "$f" | cut -d ':' -f 2)\n"
 	done
 
 	echo -e "$output" | awk -F '\t' '{printf "%-30s %-14s %-20s %-30s\n", $1, $2, $3, $4}'
