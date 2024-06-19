@@ -64,6 +64,7 @@ $forecast =~ s/\n\n/\n/g;
 $forecast =~ s/Today/\nToday/g;
 $forecast =~ s/This Afternoon:/\nThis Afternoon:/g;
 $forecast =~ s/M.L.King Day:/\nM.L.King Day:/g;
+$forecast =~ s/Juneteenth:/\nJuneteenth:/g;
 $forecast =~ s/\&nbsp;/ /g;
 $forecast =~ s/\&#39;/\'/g;
 $forecast =~ s/\&#34;/\"/g;

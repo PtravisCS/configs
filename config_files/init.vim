@@ -21,6 +21,7 @@ Plug 'https://github.com/moll/vim-bbye' " Allows destroying buffers without clos
 Plug 'dense-analysis/ale' " Linter
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' } " Search plugin (-ff, -fg, -fn)
+Plug 'catgoose/telescope-helpgrep.nvim'
 Plug 'rcarriga/nvim-notify' " Notification box plugin
 Plug 'folke/which-key.nvim'
 Plug 'echasnovski/mini.map' " Code minimap plugin
@@ -99,8 +100,17 @@ require("telescope").setup {
         end
       end
     },
+  },
+  extensions = {
+    helpgrep = {
+      ignore_paths = {
+        vim.fn.stdpath("state") .. "/lazy/readme",
+      },
+    }
   }
 }
+
+require('telescope').load_extension('helpgrep')
 
 -- Enable lspconfig method/function signature/docs popup
 require'lsp_signature'.setup({
@@ -119,6 +129,7 @@ require'lsp_signature'.setup({
 require('lspconfig').intelephense.setup{}
 require('lspconfig').lua_ls.setup{}
 require('lspconfig').vimls.setup{}
+require('lspconfig').perlnavigator.setup{}
 
 EOF
 
@@ -158,6 +169,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fhg <cmd>Telescope helpgrep<cr>
 nnoremap <leader>fn <cmd>Telescope notify<cr>
 
 " Map -ev to open init.vim for linux and windows
@@ -179,7 +191,7 @@ syntax on
 " Tab settings
 set shiftwidth=2
 set tabstop=2
-set expandtab
+set noexpandtab
 
 " Indent Settings
 set autoindent
@@ -189,6 +201,7 @@ filetype plugin indent on
 " General Environment Settings
 set showcmd " Show active command in lower right corner
 set mouse=n " Enable Mouse Mode
+set number " Show line numbers
 set relativenumber " Show relative line numbers in files
 set title
 set diffopt+=iwhite " ignore whitespace at start/end of line in diff mode
