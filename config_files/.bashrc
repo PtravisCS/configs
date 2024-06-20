@@ -266,9 +266,12 @@ note() {
 
   mkcd "$path"
   
-  printf -- "-------------------------------------" >> "$topic"
-  printf "\n$(date +%c)\n$topic\n" | cat >> "$topic"
-  printf -- "-------------------------------------" >> "$topic"
+	{ 
+		printf -- "-------------------------------------"
+		printf "\n%s\n%s\n" "$(date +%c)" "$topic" | cat
+		printf -- "-------------------------------------"
+	} >> "$topic"
+
   nvim "$topic"
   echo|tac >> "$topic"
 
@@ -287,7 +290,7 @@ numFiles() {
         globs+=("$OPTARG")
         ;;
       *)
-        printf "Invalid parameter. Usage: num_files [-g '<glob>'] -- <search_term>\n"
+        printf "Invalid parameter. Usage: numFiles [-g '<glob>'] -- <search_term>\n"
         return
         ;;
     esac
@@ -323,7 +326,7 @@ numLines() {
         globs+=("$OPTARG")
         ;;
       *)
-        printf "Invalid parameter. Usage: num_files [-g '<glob>'] -- <search_term>\n"
+        printf "Invalid parameter. Usage: numLines [-g '<glob>'] -- <search_term>\n"
         return
         ;;
     esac
@@ -402,7 +405,7 @@ rainbow() {
 # [<n>A     = Move cursor up N lines
 # [<n>B     = Move the cursor down N lines
 # [<n>C     = Move the cursor forward N columns
-# [<n>D     = Move the cursor backc N columns
+# [<n>D     = Move the cursor back N columns
 # [2J       = Clear screen and move cursor to (0,0)
 # [k        = erase to end of line
 #
@@ -415,8 +418,11 @@ rainbow() {
 # [\1D = backspace cursor 1 character
 # [0;31m = red
 # [00m = reset
-# [1;32m = light green
+# [01;32m = light green
 # [01;34m = light blue
+# \u = user
+# \h = host
+# \w = path to working directory
 
 PS1='\[\033[0;31m\]$(gitStatus)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
@@ -426,7 +432,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export GIT_EDITOR=nvim
+export GIT_EDITOR="$VISUAL"
 export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$PATH"
 #export MANPAGER="$HOME/.local/bin/nvr -s +Man!"
 export MANPAGER="nvim -c 'Man!' -"
