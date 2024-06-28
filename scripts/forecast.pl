@@ -9,22 +9,23 @@ use IO::Interactive qw(is_interactive);
 
 use strict;
 
-my $city = 'Essexville';
-my $state = 'MI';
-my $country = 'US';
+#my $city = 'Essexville';
+#my $state = 'MI';
+#my $country = 'US';
 
 # Currently unused
-GetOptions ("city=s" => \$city,
-						"state=s" => \$state,
-						"country=s" => \$country);
+#GetOptions ("city=s" => \$city,
+#						"state=s" => \$state,
+#						"country=s" => \$country);
 
-my $resp = get("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?text=$city%20$state%20$country&f=json&magicKey=dHA9NCN0dj02NjIyYjk2NiNubT1Fc3NleHZpbGxlLCBNSSwgVVNBI3NjPVVTQTpQUkk6VklSOkdVTTpBU00jbG5nPTQxI2xuPVdvcmxk");
-my $json = parse_json( $resp );
+#my $resp = get("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?text=$city%20$state%20$country&f=json&magicKey=dHA9NCN0dj02NjIyYjk2NiNubT1Fc3NleHZpbGxlLCBNSSwgVVNBI3NjPVVTQTpQUkk6VklSOkdVTTpBU00jbG5nPTQxI2xuPVdvcmxk");
+#my $json = parse_json( $resp );
 
-my $latitude = $json->{candidates}[0]->{location}->{y};
-my $longitude = $json->{candidates}[0]->{location}->{x};
+#my $latitude = $json->{candidates}[0]->{location}->{y};
+#my $longitude = $json->{candidates}[0]->{location}->{x};
 
-my $content = get("https://forecast.weather.gov/MapClick.php?lat=$latitude&lon=$longitude&unit=0&lg=english&FcstType=text&TextType=1");
+#my $content = get("https://forecast.weather.gov/MapClick.php?lat=$latitude&lon=$longitude&unit=0&lg=english&FcstType=text&TextType=1");
+my $content = get("https://forecast.weather.gov/MapClick.php?lat=43.6078&lon=-83.8277&unit=0&lg=english&FcstType=text&TextType=1");
 
 my $dom = Mojo::DOM->new($content);
 my $elements = $dom->find('td');
