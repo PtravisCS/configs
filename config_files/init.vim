@@ -20,7 +20,7 @@ Plug 'echasnovski/mini.jump2d' " Text jump program (<enter>)
 Plug 'https://github.com/moll/vim-bbye' " Allows destroying buffers without closing splits
 Plug 'dense-analysis/ale' " Linter
 Plug 'nvim-lua/plenary.nvim' " Dependency for telescope.nvim
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' } " Search plugin (-ff, -fg, -fn)
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } " Search plugin (-ff, -fg, -fn)
 Plug 'catgoose/telescope-helpgrep.nvim'
 Plug 'rcarriga/nvim-notify' " Notification box plugin
 Plug 'folke/which-key.nvim'
@@ -130,6 +130,7 @@ require('lspconfig').intelephense.setup{}
 require('lspconfig').lua_ls.setup{}
 require('lspconfig').vimls.setup{}
 require('lspconfig').perlnavigator.setup{}
+require('lspconfig').clangd.setup{}
 
 EOF
 
