@@ -163,6 +163,7 @@ statls() {
 	done
 
 	shift $(($OPTIND - 1));
+
 	if [[ -z "$1" ]]
 	then
     directory="."
@@ -244,11 +245,25 @@ show() {
 }
 
 tree () {
-  if ! command -v tree &> /dev/null; then
+	if command -v tre &> /dev/null
+	then
+		tre
+		return
+	fi
+
+	if command -v tree &> /dev/null
+	then
+		tree
+		return
+	fi
+
+	if command -v fd &> /dev/null
+	then
     fd . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
-  else
-    tre
-  fi
+		return
+	fi
+
+	printf "No valid tree solutions available.\n"
 }
 
 note() {
