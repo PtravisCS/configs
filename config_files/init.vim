@@ -2,8 +2,9 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'neovim/nvim-lspconfig' " Language server config files
 Plug 'williamboman/mason.nvim' " Language server package manager
+Plug 'williamboman/mason-lspconfig.nvim' " Bridge between Mason and lspconfig
+Plug 'neovim/nvim-lspconfig' " Language server config files
 Plug 'kdheepak/tabline.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -26,7 +27,7 @@ Plug 'rcarriga/nvim-notify' " Notification box plugin
 Plug 'folke/which-key.nvim'
 Plug 'echasnovski/mini.map' " Code minimap plugin
 Plug 'sontungexpt/stcursorword' " Highlights other instances of work under cursor in project
-Plug 'ellisonleao/glow.nvim' " Markdown display in terminal
+Plug 'MeanderingProgrammer/render-markdown.nvim' " Markdown display in terminal
 Plug 'lukas-reineke/indent-blankline.nvim' " Indentation guides plugin
 
 call plug#end()
@@ -41,7 +42,8 @@ require('which-key').setup()
 require('stcursorword').setup({ highlight = { underline = false, bg = 35 } })
 vim.notify = require("notify")
 require('mason').setup()
-require('glow').setup()
+require('mason-lspconfig').setup({ automatic_installation = true })
+require('render-markdown').setup()
 require("ibl").setup()
 
 -- Minimap configuration
@@ -124,13 +126,25 @@ require'lsp_signature'.setup({
   }
 })
 
--- Enable Language Servers
+--Install Language Servers
+
+
+--Enable Language Servers
 --require('lspconfig').bashls.setup{}
 require('lspconfig').intelephense.setup{}
 require('lspconfig').lua_ls.setup{}
 require('lspconfig').vimls.setup{}
 require('lspconfig').perlnavigator.setup{}
 require('lspconfig').clangd.setup{}
+require('lspconfig').awk_ls.setup{}
+require('lspconfig').cmake.setup{}
+require('lspconfig').html.setup{}
+require('lspconfig').java_language_server.setup{} --Requires maven and bash to be installed
+require('lspconfig').eslint.setup{}
+require('lspconfig').jsonls.setup{}
+require('lspconfig').kotlin_language_server.setup{}
+require('lspconfig').powershell_es.setup{}
+require('lspconfig').rust_analyzer.setup{}
 
 EOF
 
