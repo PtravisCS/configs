@@ -7,6 +7,7 @@
     "editor.insertSpaces": false,
     "window.menuBarVisibility": "toggle",
     "editor.folding": false,
+    "editor.stickyScroll.maxLineCount": 5,
     "editor.glyphMargin": false,
     "editor.fontLigatures": true,
     "editor.fontFamily": "'UbuntuMono Nerd Font Mono', 'monospace', monospace",
@@ -22,7 +23,7 @@
         }
     ],
     "files.trimTrailingWhitespace": true,
-    "phpcs.standard": "",
+    "phpcs.standard": "/home/travisp/Workspace/web_tools/phpcs/ruleset.xml",
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "workbench.iconTheme": "material-icon-theme",
     "extensions.experimental.affinity": {
@@ -72,5 +73,22 @@
         "description": "%...%",
         "disabled": false,
         "snippet": "%$TM_SELECTED_TEXT%"
-    }
+    },
+    "qt-core.qtInstallationRoot": "/usr/include/x86_64-linux-gnu/qt5/",
+    "phpcs.executablePath": "/home/travisp/Workspace/web_tools/phpcs/phpcs.phar",
+    "phpcs.autoConfigSearch": false,
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.namespace": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeWhileInDoWhile": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": true,
+    "C_Cpp.vcFormat.space.beforeInheritanceColon": false,
+    "C_Cpp.vcFormat.space.betweenEmptyBraces": true,
+    "C_Cpp.vcFormat.wrap.preserveBlocks": "allOneLineScopes",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
+    "terminal.integrated.stickyScroll.enabled": true
 }

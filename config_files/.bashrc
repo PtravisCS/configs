@@ -89,7 +89,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -363,6 +363,28 @@ numLines() {
   printf "%s lines\n" "$(rg -c "$cmd" -- "$dir" 2>/dev/null | cut -d':' -f2 | paste -sd+ | bc)"
 }
 
+json() {
+	if [[ "$#" -ne 0 ]]
+	then
+		printf %s "$@" | python -m json.tool
+	else
+		python -m json.tool
+	fi
+}
+
+json2() {
+	grep -Eo '"[^"]*" *(: *([0-9]*|"[^"]*")[^{}\["]*|,)?|[^"\]\[\}\{]*|\{|\},?|\[|\],?|[0-9 ]*,?' | awk '{if ($0 ~ /^[}\]]/ ) offset-=4; printf "%*c%s\n", offset, " ", $0; if ($0 ~ /^[{\[]/) offset+=4}'
+}
+
+xml() {
+	if [[ "$#" -ne 0 ]]
+	then
+		printf %s "$@" | python -c 'import sys, xml.dom.minidom; print(xml.dom.minidom.parseString(sys.stdin.read()).toprettyxml())'
+	else
+		python -c 'import sys, xml.dom.minidom; print(xml.dom.minidom.parseString(sys.stdin.read()).toprettyxml())'
+	fi
+}
+
 black=$(tput setaf 0)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
@@ -447,6 +469,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export SYSTEMD_EDITOR="vim"
 export GIT_EDITOR="$VISUAL"
 export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$PATH"
 #export MANPAGER="$HOME/.local/bin/nvr -s +Man!"

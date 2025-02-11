@@ -18,3 +18,5 @@
 	keepBackup = false
 [mergetool "nvimdiff"]
   layout = LOCAL,MERGED,REMOTE
+[credential]
+	helper = store

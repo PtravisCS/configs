@@ -2,8 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'williamboman/mason.nvim' " Language server package manager
-Plug 'williamboman/mason-lspconfig.nvim' " Bridge between Mason and lspconfig
+Plug 'williamboman/mason.nvim' " Mason Language server package manager
 Plug 'neovim/nvim-lspconfig' " Language server config files
 Plug 'kdheepak/tabline.nvim'
 Plug 'hoob3rt/lualine.nvim'
@@ -42,7 +41,7 @@ require('which-key').setup()
 require('stcursorword').setup({ highlight = { underline = false, bg = 35 } })
 vim.notify = require("notify")
 require('mason').setup()
-require('mason-lspconfig').setup({ automatic_installation = true })
+-- require('mason-lspconfig').setup({ automatic_installation = true })
 require('render-markdown').setup()
 require("ibl").setup()
 
@@ -139,10 +138,10 @@ require('lspconfig').clangd.setup{}
 require('lspconfig').awk_ls.setup{}
 require('lspconfig').cmake.setup{}
 require('lspconfig').html.setup{}
-require('lspconfig').java_language_server.setup{} --Requires maven and bash to be installed
+-- require('lspconfig').java_language_server.setup{} --Requires maven and bash to be installed
 require('lspconfig').eslint.setup{}
 require('lspconfig').jsonls.setup{}
-require('lspconfig').kotlin_language_server.setup{}
+-- require('lspconfig').kotlin_language_server.setup{}
 require('lspconfig').powershell_es.setup{}
 require('lspconfig').rust_analyzer.setup{}
 
@@ -159,7 +158,15 @@ set background=dark
 " Auto start autocomplete plugin
 " Not compatible with Windows sadly
 if has('unix')
-  let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long' }
+  let g:coq_settings = { 'auto_start': 'shut-up', 'display.icons.mode': 'long', "keymap.recommended": v:false }
+
+	ino <silent><expr> <Esc> 	pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+	ino <silent><expr> <C-c> 	pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+	ino <silent><expr> <BS> 	pumvisible() ? "\<C-e><BS>" : "\<BS>"
+	ino <silent><expr> <CR> 	pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+	ino <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+	ino <silent><expr> <Up> 	pumvisible() ? "\<C-p>" : "\<BS>"
+
 endif
 
 set foldmethod=expr
