@@ -164,10 +164,10 @@ statls() {
 
 	shift $(($OPTIND - 1));
 
-	if [[ -z "$1" ]]
+	local directory="."
+
+	if [[ -n "$1" ]]
 	then
-    directory="."
-	else
     directory=$1
 	fi
 
@@ -191,11 +191,144 @@ statls() {
 
 }
 
+# TODO: This should be moved into a different scripting language as a program, it's well past the point where BASH makes sense
+# Finds the commit in which something was added/removed to/from the code base.
+gitChanged() {
+	help() { #intentionally nesting help function to avoid name conflicts
+		if [[ -n "$1" ]]
+		then
+			printf "%s\n\n" "$1"
+		fi
+
+		printf "Usage: gitChanged <search_term> [<operation>] [<file_to_search>]\n"
+		printf "<search_term> The term in the code that has been added/removed.\n"
+		printf "<operation> (Optional) Whether the search term was added or removed. Should be a + for added and a - for removed. Default '-'.\n"
+		printf "<file_to_search> (Optional) The file to look at for the added/removed search term.\n"
+	}
+
+	local search_term=""
+
+	if [[ -n "$1" ]] && [[ "$1" != '-h' ]]
+	then
+		search_term="$1"
+	else
+		help 'Search term must be provided'
+		return
+	fi
+
+	local operation="-"
+	if [[ -n "$2" ]]
+	then
+		operation="$2"
+	fi
+
+	if [[ "$operation" != '-' ]] && [[ "$operation" != '+' ]]
+	then
+		help "Operation needs to be a '+' (added) or a '-' (removed)."
+		return
+	fi
+
+	local file=""
+
+	if [[ -n "$3" ]]
+	then
+		if [[ -f "$3" ]] || [[ -d "$3" ]]
+		then
+			file="$3"
+		else
+			printf "%s is not a valid file ignoring...\n" "$3"
+		fi
+	fi
+
+	local searcher='rg'
+
+	if ! command -v rg >/dev/null 2>&1
+	then
+		searcher='grep -E'
+	fi
+
+	#from start of line, after 0 or more whitespace, search for operation, 
+	#0 or more of any character, then for the search term,
+	#followed by 0 or more of any character
+	local regex='^\s*'"$operation"'.*'"$search_term"'.*'
+
+	#Get an array of only hashes from the log (--pretty='%H' limits the output to the format provided, %H is the hash)
+	local commits=( $(git log --pretty='%H') )
+
+	if [[ -n "$file" ]]
+	then
+		commits=( $(git log --pretty='%H' -- "$file") ) 
+	fi
+
+	printf "Search expression: '%s %s'\n" "$searcher" "$regex"
+	printf "Searching through %i commit diffs\n" ${#commits[@]}
+
+	local matches=0
+
+	#Loops over commits in current repo (if file is provided then for current file) 
+	#and for each one performs a diff from a previous commit to the next and greps that commit for 
+	#a search term being removed, if one (or more) instances are found the commit SHA1 is echoed to the shell
+	if [[ -f "$file" ]] || [[ -d "$file" ]]
+	then
+		for commit in ${commits[*]}
+		do 
+			if [[ $(git cat-file -t "$commit" 2>/dev/null) != 'commit' ]] 
+			then
+				printf "Commit %s not found\n" "$commit"
+			elif [[ $(git cat-file -t "$commit^" 2>/dev/null) != 'commit' ]]
+			then
+				git show "$commit" | 
+					$searcher '[iI]nitial [cC]ommit' >/dev/null || 
+					printf "Commit %s^ not found\n" "$commit"
+			else
+				#-U specifies number of lines of context in the diff.
+				git diff -U0 --ignore-space-change "$commit^" "$commit" -- "$file" | 
+					$searcher "$regex" >/dev/null && 
+					printf "%s\n" "$commit" &&
+					((++matches))
+			fi
+		done
+	else
+		for commit in ${commits[*]}
+		do
+			if [[ $(git cat-file -t "$commit" 2>/dev/null) != 'commit' ]] 
+			then
+				printf "Commit %s not found\n" "$commit"
+			elif [[ $(git cat-file -t "$commit^" 2>/dev/null) != 'commit' ]]
+			then
+				git show "$commit" | 
+					$searcher '[iI]nitial [cC]ommit' >/dev/null || 
+					printf "Commit %s^ not found\n" "$commit"
+			else
+				git diff -U0 --ignore-space-change "$commit^" "$commit" | 
+					$searcher "$regex" >/dev/null && 
+					printf "%s\n" "$commit" &&
+					((++matches))
+			fi
+		done
+	fi
+
+	printf "Search completed. %i matches found.\n" "$matches"
+}
+
+gitDiff() {
+	local branch=""
+
+	if [[ -z "$1" ]]
+	then
+		branch=$(gitBranch)
+	else
+		branch=$1
+	fi
+
+	git d "$branch" -- ':!*.min*' ':!*.map*' ':!*.css*'
+}
+
 gitBranch() {
 
   local gitBranch
   gitBranch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-  echo "$gitBranch"
+  printf "%s\n" "$gitBranch"
 
 }
 
@@ -322,6 +455,8 @@ numFiles() {
   printf "%s files\n" "$(rg -c "$cmd" -- "$1" 2>/dev/null | wc -l)"
 }
 
+#TODO: This doesn't work, the actual command in the subshell works, just not when run like this. I haven't done much testing as to why. It does work when run without globs and without specifying a directory it seems.
+# List the number of lines in files matching the specified globs in the specified directory.
 numLines() {
   local globs=( )
   local OPTIND
@@ -364,16 +499,19 @@ numLines() {
 }
 
 json() {
-	if [[ "$#" -ne 0 ]]
+	if command -v python &> /dev/null
 	then
-		printf %s "$@" | python -m json.tool
+		if [[ "$#" -ne 0 ]]
+		then
+			printf %s "$@" | python -m json.tool
+		else
+			python -m json.tool
+		fi
 	else
-		python -m json.tool
-	fi
-}
+		printf "Python not installed, using grep and awk\n. The file must be provided over pipe\n"
 
-json2() {
-	grep -Eo '"[^"]*" *(: *([0-9]*|"[^"]*")[^{}\["]*|,)?|[^"\]\[\}\{]*|\{|\},?|\[|\],?|[0-9 ]*,?' | awk '{if ($0 ~ /^[}\]]/ ) offset-=4; printf "%*c%s\n", offset, " ", $0; if ($0 ~ /^[{\[]/) offset+=4}'
+		grep -Eo '"[^"]*" *(: *([0-9]*|"[^"]*")[^{}\["]*|,)?|[^"\]\[\}\{]*|\{|\},?|\[|\],?|[0-9 ]*,?' | awk '{if ($0 ~ /^[}\]]/ ) offset-=4; printf "%*c%s\n", offset, " ", $0; if ($0 ~ /^[{\[]/) offset+=4}'
+	fi
 }
 
 xml() {

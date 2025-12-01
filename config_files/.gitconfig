@@ -20,3 +20,6 @@
   layout = LOCAL,MERGED,REMOTE
 [credential]
 	helper = store
+[safe]
+	directory = /home/travisp/Workspace/repos/web_external
+	directory = /home/travisp/Workspace/repos/web_internal

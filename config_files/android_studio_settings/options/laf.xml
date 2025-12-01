@@ -1,0 +1,8 @@
+<application>
+  <component name="LafManager">
+    <laf themeId="72be8783-3a4d-4044-bb03-191e61d21ed3" />
+    <lafs-to-previous-schemes>
+      <laf-to-scheme laf="72be8783-3a4d-4044-bb03-191e61d21ed3" scheme="_@user_Gruvbox Dark Medium" />
+    </lafs-to-previous-schemes>
+  </component>
+</application>

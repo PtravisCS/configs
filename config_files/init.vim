@@ -24,7 +24,6 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } " Search plugin (-ff, -
 Plug 'catgoose/telescope-helpgrep.nvim'
 Plug 'rcarriga/nvim-notify' " Notification box plugin
 Plug 'folke/which-key.nvim'
-Plug 'echasnovski/mini.map' " Code minimap plugin
 Plug 'sontungexpt/stcursorword' " Highlights other instances of work under cursor in project
 Plug 'MeanderingProgrammer/render-markdown.nvim' " Markdown display in terminal
 Plug 'lukas-reineke/indent-blankline.nvim' " Indentation guides plugin
@@ -44,17 +43,6 @@ require('mason').setup()
 -- require('mason-lspconfig').setup({ automatic_installation = true })
 require('render-markdown').setup()
 require("ibl").setup()
-
--- Minimap configuration
-if not vim.api.nvim_win_get_option(0, "diff") then
-  require('mini.map').setup({ 
-    symbols = { 
-      encode = require('mini.map').gen_encode_symbols.dot('4x2') -- Use dots for minmap symbols. The block symbols aren't all available in MacOS (even with NerdFont).
-    } 
-  })
-
-  MiniMap.open()
-end
 
 -- Treesitter Configuration
 require'nvim-treesitter.configs'.setup {
@@ -130,20 +118,21 @@ require'lsp_signature'.setup({
 
 --Enable Language Servers
 --require('lspconfig').bashls.setup{}
-require('lspconfig').intelephense.setup{}
-require('lspconfig').lua_ls.setup{}
-require('lspconfig').vimls.setup{}
-require('lspconfig').perlnavigator.setup{}
-require('lspconfig').clangd.setup{}
-require('lspconfig').awk_ls.setup{}
-require('lspconfig').cmake.setup{}
-require('lspconfig').html.setup{}
--- require('lspconfig').java_language_server.setup{} --Requires maven and bash to be installed
-require('lspconfig').eslint.setup{}
-require('lspconfig').jsonls.setup{}
--- require('lspconfig').kotlin_language_server.setup{}
-require('lspconfig').powershell_es.setup{}
-require('lspconfig').rust_analyzer.setup{}
+--require('lspconfig').intelephense.setup{}
+vim.lsp.config("intelephense",{})
+vim.lsp.config("lua_ls",{})
+vim.lsp.config("vimls",{})
+vim.lsp.config("perlnavigator",{})
+vim.lsp.config("clangd",{})
+vim.lsp.config("awk_ls",{})
+vim.lsp.config("cmake",{})
+vim.lsp.config("html",{})
+-- vim.lsp.config("java_language_server.setup{} --Requires maven and bash to be installed
+vim.lsp.config("eslint",{})
+vim.lsp.config("jsonls",{})
+-- vim.lsp.config("kotlin_language_server",{})
+vim.lsp.config("powershell_es",{})
+vim.lsp.config("rust_analyzer",{})
 
 EOF
 
@@ -177,7 +166,6 @@ let mapleader = "-"
 nnoremap <leader>ga :!git add %<cr>
 nnoremap <leader>gc :!git commit<cr>
 nnoremap <leader>gp :!git push<cr>
-nnoremap <leader>mm :lua require('mini.map').toggle()<cr>
 nnoremap <leader>erc <cmd>badd ~/.bashrc<cr><cmd>b .bashrc<cr>
 nnoremap <leader>C <cmd>CHADopen<cr>
 nnoremap <Esc> <C-\><C-n>

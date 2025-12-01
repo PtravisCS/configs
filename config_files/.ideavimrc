@@ -1,0 +1,12 @@
+set number relativenumber
+
+" use :actionlist to get a list of editor actions
+
+" AceJump
+nnoremap <ENTER> :action AceTargetAction<CR>
+
+" Case conversion commands. Will refactor a variable to the new case type
+nnoremap -cc :action RenameElement<CR><ESC>viw:action me.laria.code.idea_caseconv.CamelCaseAction<CR><CR>
+nnoremap -cs :action RenameElement<CR><ESC>viw:action me.laria.code.idea_caseconv.SnakeCaseAction<CR><CR>
+nnoremap -css :action RenameElement<CR><ESC>viw:action me.laria.code.idea_caseconv.ScreamingSnakeCaseAction<CR><CR>
+

@@ -1,0 +1,30 @@
+<application>
+  <component name="DimensionService">
+    <location key="WELCOME_SCREEN.0.0.1920.1080" x="982" y="300" />
+    <location key="find.popup.0.0.1920.1080" x="1205" y="183" />
+    <location key="find.popup.1920.0.1920.1080" x="3125" y="183" />
+    <size key="find.popup.0.0.1920.1080" width="645" height="560" />
+    <size key="GridCell.Tab.0.left.0.0.1920.1080" width="1790" height="303" />
+    <size key="GridCell.Tab.0.center.0.0.1920.1080" width="1790" height="303" />
+    <size key="GridCell.Tab.0.right.0.0.1920.1080" width="1790" height="303" />
+    <size key="GridCell.Tab.0.bottom.0.0.1920.1080" width="1790" height="303" />
+    <size key="find.popup.1920.0.1920.1080" width="645" height="840" />
+  </component>
+  <component name="WindowManager">
+    <frame x="48" y="32" width="1872" height="1048" extendedState="6" />
+  </component>
+  <component name="WindowStateApplicationService">
+    <state x="748" y="220" key="FileChooserDialogImpl" timestamp="1744304925094">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="748" y="220" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080" timestamp="1744304925094" />
+    <state width="607" height="167" key="ShowUsagesActions.dimensionServiceKey" timestamp="1751999802232">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="607" height="167" key="ShowUsagesActions.dimensionServiceKey/0.0.1920.1080/1920.0.1920.1080" timestamp="1751999802232" />
+    <state x="982" y="300" key="WELCOME_SCREEN" timestamp="1744304890670">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="982" y="300" key="WELCOME_SCREEN/0.0.1920.1080/1920.0.1920.1080" timestamp="1744304890670" />
+  </component>
+</application>

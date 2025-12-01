@@ -1,6 +1,5 @@
 {
     "editor.cursorBlinking": "solid",
-    "editor.cursorStyle": "block",
     "editor.tabSize": 2,
     "workbench.colorTheme": "Kimbie Dark",
     "vscode-neovim.neovimClean": true,
@@ -30,7 +29,6 @@
         "asvetliakov.vscode-neovim": 1
     },
     "editor.lineNumbers": "relative",
-    "window.density.editorTabHeight": "compact",
     "workbench.editor.tabActionCloseVisibility": false,
     "surround.with.doubleQuotes": {
         "label": "Double Quotes",
@@ -76,7 +74,6 @@
     },
     "qt-core.qtInstallationRoot": "/usr/include/x86_64-linux-gnu/qt5/",
     "phpcs.executablePath": "/home/travisp/Workspace/web_tools/phpcs/phpcs.phar",
-    "phpcs.autoConfigSearch": false,
     "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "sameLine",
     "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "sameLine",
     "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": "sameLine",
@@ -90,5 +87,25 @@
     "C_Cpp.vcFormat.wrap.preserveBlocks": "allOneLineScopes",
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
-    "terminal.integrated.stickyScroll.enabled": true
+    "terminal.integrated.stickyScroll.enabled": true,
+    "chat.commandCenter.enabled": false,
+    "phpcs.showSources": true,
+    "phpcs.autoConfigSearch": false,
+    "emmet.showAbbreviationSuggestions": false,
+    "emmet.showExpandedAbbreviation": "never",
+    "editor.renderWhitespace": "none",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "chat.agent.enabled": false,
+    "chat.agent.maxRequests": 0,
+    "chat.checkpoints.enabled": false,
+    "chat.detectParticipant.enabled": false,
+    "chat.mcp.access": "none",
+    "chat.mcp.autostart": "never",
+    "chat.tools.edits.autoApprove": {
+        "": true,
+        "**/*": false
+    },
+    "chat.tools.terminal.enableAutoApprove": false,
+    "chat.undoRequests.restoreInput": false,
+    "inlineChat.holdToSpeech": false
 }

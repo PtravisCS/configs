@@ -1,0 +1,10 @@
+<application>
+  <component name="ConsoleFoldingSettings">
+    <option name="addedPositive">
+      <list>
+        <option value="IMGMapper" />
+        <option value="OpenGLRenderer" />
+      </list>
+    </option>
+  </component>
+</application>

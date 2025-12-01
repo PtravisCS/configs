@@ -1,0 +1,4 @@
+me.laria.code.idea_caseconv
+AceJump
+com.github.lonre.gruvbox-intellij-theme
+IdeaVIM
