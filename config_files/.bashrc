@@ -523,6 +523,117 @@ xml() {
 	fi
 }
 
+rename2() {
+	local a=''
+	local i=''
+	local s=0
+	local pattern=''
+	local replacement=''
+	local path='./*'
+
+	local hasrename=0
+	local hasfilerename=0
+
+  if command -v rename.ul &> /dev/null
+	then
+		hasrename=1
+	fi
+
+	if command -v file-rename &> /dev/null
+	then
+		hasfilerename=1
+	fi
+
+	while getopts "aih" opt; do
+    case "$opt" in
+      a)
+				a='-a '
+        ;;
+			i)
+				i='-i '
+				;;
+			s)
+				s=1
+				;;
+			h)
+				printf "rename2 [-a] [-i] [-s] <pattern to replace> <replacement> [<path>]\n\t-a\tReplace all instances of pattern\n\t-i\tInteractively replace\n\nNote: switches -i and -s are ignored if Perl file-rename is installed"
+				return
+				;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  if [ -n "$1" ]
+  then
+    pattern="$1"
+  fi
+
+  if [ -n "$2" ]
+  then
+    replacement="$2"
+  fi
+
+  if [ -n "$3" ]
+  then
+		path="$3"
+
+		local REGEX='^.*(\*\.[A-Za-z0-9]+|\/\*)$'
+
+		if [ $hasrename -eq 0 ] && [ $hasfilerename -eq 0 ] && [[ ! "$path" =~ $REGEX ]] # path has to end in a file glob, if it doesn't, assume *
+		then
+			path=$(sed -E 's/$/\/\*/' <<< "$path")
+		fi
+  fi
+
+	if [ $hasrename -eq 1 ]
+	then
+		rename.ul "$a""$i""$pattern" "$replacement" "$path" 
+	elif [ $hasfilerename -eq 1 ]
+	then
+		if [ "$a" = '-a' ]
+		then
+			file-rename "s/$pattern/$replacement/g" -- "$path"
+		else
+			file-rename "s/$pattern/$replacement/" -- "$path"
+		fi
+	else
+		for file in $path
+		do 
+			local newname=$(sed -E "s/$pattern/$replacement/" <<< "$file")
+
+			if [ "$a" = '-a ' ]
+			then
+				newname=$(sed -E "s/$pattern/$replacement/g" <<< "$file")
+			fi
+
+			if [ "$file" = "$newname" ]
+			then
+				continue
+			fi
+
+			if [ "$s" -eq 0 ]
+			then
+				printf "Renaming %s to %s\n" "$file" "$newname"
+			fi
+
+			if [ "$i" = '-i ' ]
+			then
+				local yon
+
+				printf "Rename %s to %s (y|n)? " "$file" "$newname"
+				read yon
+
+				if [ ! "$yon" = 'y' ] && [ ! "$yon" = 'Y' ]
+				then
+					continue
+				fi
+			fi
+
+			mv "$file" "$newname"
+		done
+	fi
+}
+
 black=$(tput setaf 0)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
@@ -548,6 +659,7 @@ rainbow() {
 }
 
 # All Escapes
+# Fuller list here: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 #
 # Color       Fore    Back
 # --------    ----    ----

@@ -146,7 +146,6 @@ def handleGetJsonDataFromFile(file: str) -> Dict[str, str]:
 
     try:
         data: Dict[str, str] = getJsonDataFromFile(file)
-
     except FileNotFoundError as e:
         print(e)
         exit()
