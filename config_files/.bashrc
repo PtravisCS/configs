@@ -371,7 +371,7 @@ show() {
   if [[ -n "$1" ]]; then
     local commit="$1"
     shift
-    git show "$commit" -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map' "$@"
+    git show "$commit" -- ':!*.min.map' ':!*.min.js' ':!*.min.js.map' ':!*.min.css' "$@"
   else
     git show 
   fi
@@ -393,6 +393,12 @@ tree () {
 	if command -v fd &> /dev/null
 	then
     fd . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
+		return
+	fi
+
+	if command -v find &> /dev/null
+	then
+		find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/" 
 		return
 	fi
 
@@ -721,7 +727,7 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export SYSTEMD_EDITOR="vim"
 export GIT_EDITOR="$VISUAL"
-export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:/home/travisp/.cargo/bin:$HOME/.duckdb/cli/latest:$PATH"
 #export MANPAGER="$HOME/.local/bin/nvr -s +Man!"
 export MANPAGER="nvim -c 'Man!' -"
 export XDG_CONFIG_HOME="$HOME/.config"

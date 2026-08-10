@@ -27,7 +27,7 @@ alias add='git add .'
 alias s='git status'
 alias c='git commit'
 alias p='git push'
-alias d='gitDiff' #using a function from my .bashrc so I can exclude mine files while still providing a branch to diff against
+alias d='gitDiff' #using a function from my .bashrc so I can exclude min files while still providing a branch to diff against
 alias log='git log --full-history --stat --all --'
 alias git-deleted='git log --diff-filter=D --summary --'
 alias git-history='git log --full-history --stat --all --grep'
@@ -43,3 +43,4 @@ alias less='less -N -S -#.2'
 alias o='xdg-open'
 alias netstat='ss -ltpn'
 alias code.='code .'
+alias butane='podman run --rm --interactive --security-opt label=disable --volume "${PWD}:/pwd" --workdir /pwd quay.io/coreos/butane:release'
