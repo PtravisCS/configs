@@ -107,5 +107,14 @@
     },
     "chat.tools.terminal.enableAutoApprove": false,
     "chat.undoRequests.restoreInput": false,
-    "inlineChat.holdToSpeech": false
+    "inlineChat.holdToSpeech": false,
+    "python.analysis.typeCheckingMode": "standard",
+    "chat.disableAIFeatures": true,
+    "git.blame.editorDecoration.enabled": false,
+    "git.blame.statusBarItem.enabled": true,
+    "intelephense.completion.insertUseDeclaration": false,
+    "intelephense.completion.parameterCase": "snake",
+    "todo-tree.ripgrep.ripgrep": "/usr/bin/rg",
+    "todo-tree.regex.regexCaseSensitive": false,
+    "workbench.experimental.modernUI": false
 }

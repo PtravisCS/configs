@@ -45,7 +45,7 @@ require('render-markdown').setup()
 require("ibl").setup()
 
 -- Treesitter Configuration
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter'.setup {
   highlight = {
     enable = true,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
