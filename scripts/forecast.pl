@@ -82,7 +82,7 @@ if (is_interactive()) {
   $forecast =~ s/(<b>)/\*\*/g;
   $forecast =~ s#</b>#\*\*#g;
 }
-$forecast =~ s/2023/2023\n/;
+$forecast =~ s/20([0-9]{2})/20\1\n/;
 $forecast =~ s/Visit your local NWS office at://g;
 $forecast =~ s/Essexville/\nEssexville/g;
 $forecast =~ s/MI°/MI /g;
