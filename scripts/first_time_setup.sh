@@ -2,7 +2,6 @@
 
 progs=('apache2' 
   'apache2-dev' 
-  'aptitude' 
 	'astyle'
   'build-essential' 
   'cargo' 
@@ -15,8 +14,6 @@ progs=('apache2'
 	'curl'
 	'docker'
 	'dos2unix'
-	'evolution'
-	'evolution-ews'
 	'fd-find'
 	'feh'
 	'ffmpeg'
@@ -97,7 +94,7 @@ progs=('apache2'
 	'wl-clipboard'
 )
 
-printf 'Do you want to add the glow markdown reader repo to the sources list?'
+printf -- 'Do you want to add the glow markdown reader repo to the sources list?\n'
 select yon in 'y' 'n'; do
   case $yon in
     'y'|'Y')
@@ -110,7 +107,7 @@ select yon in 'y' 'n'; do
   esac
 done
 
-printf 'Do you want to add the PowerShell repo to the sources list?'
+printf -- 'Do you want to add the PowerShell repo to the sources list?\n'
 select yon in 'y' 'n'; do
   case $yon in
     'y'|'Y')
@@ -139,32 +136,40 @@ done
 sudo apt-get update
 sudo apt-get upgrade
 
-for t in "${progs[@]}"; do
-  printf 'Installing %s\n' "$t"
-  sudo apt-get -qq install "$t"
+printf -- 'Do you wish to install default programs?\n'
+select yon in 'y' 'n'; do
+	case $yon in
+		'y'|'Y')
+			for t in "${progs[@]}"; do
+				printf 'Installing %s\n' "$t"
+				sudo apt-get -qq install "$t"
+			done
+
+			# Required for Android Studio
+			printf 'Installing android studio dependancies\n'
+			sudo apt-get -qq install android-sdk lib32z1 libapr1 libapr1-dev libaprutil1-dev libbz2-1.0:i386 libc6:i386 libncurses5:i386 libstdc++6:i386
+			;;
+		'n'|'N') break;;
+	esac
 done
 
-# Required for Android Studio
-printf 'Installing android studio dependancies\n'
-sudo apt-get -qq install android-sdk lib32z1 libapr1 libapr1-dev libaprutil1-dev libbz2-1.0:i386 libc6:i386 libncurses5:i386 libstdc++6:i386
-
-printf 'Do you wish to install NeoVim?'
+printf -- 'Do you wish to install NeoVim?\n'
 select yon in 'y' 'n'; do
   case $yon in
     'y'|'Y')
       # Install Neovim
       cd ~/ || return
-      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-      tar -xvzf nvim-linux64.tar.gz
-      cd nvim-linux64 || (printf 'Unable to CD into nvim-linux64' && exit)
+      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
+      tar -xvzf nvim-linux-x86_64.tar.gz
+      cd nvim-linux-x86_64 || (printf 'Unable to CD into nvim-linux-x86_64' && exit)
       sudo rsync -a ./bin/ /usr/bin/
       sudo rsync -a ./lib/ /usr/lib/
       sudo rsync -a ./share/ /usr/share/
-      sudo rsync -a ./man/ /usr/local/man
+      sudo rsync -a ./share/man/ /usr/local/man
 
       cd ~/ || return
-      rm -rf ./nvim-linux64.tar.gz
-      rm -rf ./nvim-linux64
+      rm -rf ./nvim-linux-x86_64.tar.gz
+      rm -rf ./nvim-linux-x86_64
       break
       ;;
     'n'|'N') break ;;
